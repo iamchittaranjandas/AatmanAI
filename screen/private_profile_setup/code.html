@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Private Profile Setup - Aatman AI 360</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1e0fbd",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#050505", /* Obsidian Black */
+                        "surface-dark": "#121022", /* Deep Indigo/Dark Gray for cards */
+                        "gold": "#D4AF37",
+                        "teal": "#008080",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                    backgroundImage: {
+                        'gold-teal': 'linear-gradient(135deg, #D4AF37 0%, #008080 100%)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom range slider styling for webkit */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D4AF37 0%, #008080 100%);
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            border: 2px solid #fff;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #373267;
+            border-radius: 2px;
+        }
+        input[type=range]:focus::-webkit-slider-runnable-track {
+            background: #1e0fbd;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen font-display text-white selection:bg-primary selection:text-white">
+<div class="relative flex h-full w-full flex-col max-w-md mx-auto overflow-x-hidden min-h-screen pb-10">
+<!-- Header -->
+<div class="flex items-center p-6 pb-2 justify-between sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<button class="text-white/70 hover:text-white flex size-10 shrink-0 items-center justify-center rounded-full active:bg-white/10 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back_ios_new</span>
+</button>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight flex-1 text-center pr-10">Private Profile</h2>
+</div>
+<!-- Profile Photo Section -->
+<div class="flex px-6 pt-6 pb-2 w-full flex-col gap-4 items-center animate-fade-in-up">
+<div class="relative group cursor-pointer">
+<!-- Glow effect -->
+<div class="absolute -inset-1 rounded-full bg-gradient-to-r from-primary to-purple-600 opacity-30 blur group-hover:opacity-60 transition-opacity duration-500"></div>
+<!-- Avatar Container -->
+<div class="relative flex items-center justify-center bg-surface-dark bg-center bg-no-repeat bg-cover rounded-full h-32 w-32 border-2 border-white/10 shadow-2xl" data-alt="abstract tech avatar placeholder with dark background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAVaVg8zmHEFlpBYUxRNMb55TQLJh6YqFQqUjsIuhdKKrra4mxlkK6AZyUW0hdeW2U4MLM9yU6f26UzmYHXWjh0XdPfpjBJc5jMH6rdn1tKjxP8dbmbBKiGofEotBwUpKQy5z9AJO0JzEwpbw_oYPnyB3KiGdeq6aQy0VcGtzdbXQH3XnqDPzf3DkPNTwwkWHa7YzTyGFpSm_weN0ZG0IqrAoFDJ6zoh7nV16edOQrYkzF_1R_hmnAGDzCjfBcEuIVWnGk2Yd2GZMA");'>
+<!-- Plus Icon Overlay -->
+<div class="absolute bottom-0 right-0 bg-gold-teal p-2 rounded-full border-4 border-background-dark flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-white" style="font-size: 20px;">add</span>
+</div>
+</div>
+</div>
+<p class="text-white/60 text-sm font-medium tracking-wide">Tap to upload photo</p>
+</div>
+<!-- Inputs Section -->
+<div class="flex flex-col gap-6 px-6 py-6 w-full">
+<!-- Full Name Input -->
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-sm font-medium ml-1">Full Name</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-white/40" style="font-size: 20px;">person</span>
+<input class="w-full bg-surface-dark border border-white/10 text-white rounded-lg px-4 py-4 pl-12 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-white/20 font-light" placeholder="Enter your name" type="text" value="Alex Mercer"/>
+</div>
+</div>
+<!-- Life Goal Input -->
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-sm font-medium ml-1">Life Goal</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-white/40" style="font-size: 20px;">flag</span>
+<input class="w-full bg-surface-dark border border-white/10 text-white rounded-lg px-4 py-4 pl-12 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-white/20 font-light" placeholder="e.g., Find clarity" type="text" value=""/>
+</div>
+</div>
+<!-- Interests Tag Cloud -->
+<div class="flex flex-col gap-3 pt-2">
+<div class="flex justify-between items-center px-1">
+<h3 class="text-white/80 text-sm font-medium">Interests</h3>
+<span class="text-white/30 text-xs">Select up to 5</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-lg bg-surface-dark border border-white/10 text-white/60 text-sm hover:border-primary/50 hover:text-white transition-colors">Mindfulness</button>
+<button class="px-4 py-2 rounded-lg bg-primary/20 border border-primary text-primary-light text-white text-sm shadow-[0_0_15px_rgba(30,15,189,0.3)]">Deep Tech</button>
+<button class="px-4 py-2 rounded-lg bg-surface-dark border border-white/10 text-white/60 text-sm hover:border-primary/50 hover:text-white transition-colors">Philosophy</button>
+<button class="px-4 py-2 rounded-lg bg-surface-dark border border-white/10 text-white/60 text-sm hover:border-primary/50 hover:text-white transition-colors">Art History</button>
+<button class="px-4 py-2 rounded-lg bg-primary/20 border border-primary text-white text-sm shadow-[0_0_15px_rgba(30,15,189,0.3)]">Offline AI</button>
+<button class="px-4 py-2 rounded-lg bg-surface-dark border border-white/10 text-white/60 text-sm hover:border-primary/50 hover:text-white transition-colors">Finance</button>
+<button class="px-4 py-2 rounded-lg bg-surface-dark border border-white/10 text-white/60 text-sm hover:border-primary/50 hover:text-white transition-colors">Biotech</button>
+</div>
+</div>
+<!-- Privacy Level Slider -->
+<div class="flex flex-col gap-4 pt-6 bg-surface-dark/50 p-5 rounded-xl border border-white/5 mt-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-gold" style="font-size: 20px;">shield_lock</span>
+<h3 class="text-white text-base font-bold">AI Privacy Level</h3>
+</div>
+<div class="flex flex-col gap-6">
+<div class="flex justify-between items-end">
+<span class="text-white/50 text-xs uppercase tracking-wider font-semibold">Essential</span>
+<div class="flex flex-col items-end">
+<span class="text-gold font-bold text-sm">Maximum Fortress</span>
+<span class="text-white/40 text-[10px]">Local processing only</span>
+</div>
+</div>
+<div class="relative w-full h-6 flex items-center">
+<!-- Custom track background for visual flair -->
+<div class="absolute w-full h-1 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full w-3/4 bg-gradient-to-r from-primary to-gold opacity-50"></div>
+</div>
+<input class="w-full absolute z-10 h-2 opacity-0 cursor-pointer" id="privacyRange" max="100" min="1" type="range" value="75"/>
+<!-- Fake Thumb for visual representation if needed, though webkit styling handles it -->
+<div aria-hidden="true" class="w-full h-1 absolute pointer-events-none">
+<div class="w-6 h-6 rounded-full bg-gold-teal border-2 border-white absolute top-1/2 -translate-y-1/2 shadow-[0_0_15px_rgba(212,175,55,0.4)]" style="left: 75%; transform: translate(-50%, -50%);"></div>
+</div>
+</div>
+<p class="text-xs text-center text-white/40 italic">
+                        "Your thoughts remain isolated. Zero cloud sync enabled."
+                    </p>
+</div>
+</div>
+</div>
+<!-- Footer Action -->
+<div class="mt-auto px-6 py-8">
+<button class="relative w-full group overflow-hidden rounded-xl p-[1px]">
+<span class="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)] opacity-0 group-hover:opacity-100 transition-opacity"></span>
+<div class="relative w-full bg-gold-teal rounded-xl py-4 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(0,128,128,0.3)] transition-transform active:scale-[0.98]">
+<span class="material-symbols-outlined text-white" style="font-size: 20px;">lock</span>
+<span class="text-white font-bold text-lg tracking-wide">Seal Profile &amp; Continue</span>
+</div>
+</button>
+<p class="text-center text-white/20 text-[10px] mt-4 font-mono uppercase tracking-widest">Aatman AI 360 Secure Environment</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             x:Class="AatmanAI.Views.SplashPage"
+             x:DataType="vm:SplashViewModel"
+             BackgroundColor="#0A1015"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+
+    <!-- Outer Grid for gradient background simulation + content overlay -->
+    <Grid>
+        <!-- Background gradient: top #1A2634 -> mid #0D1821 -> bottom #0A1015 -->
+        <BoxView Color="#1A2634" VerticalOptions="Start" HeightRequest="280"/>
+        <BoxView Color="#0D1821" VerticalOptions="Center" HeightRequest="350"/>
+
+        <!-- Main content -->
+        <Grid RowDefinitions="2*,Auto,Auto,Auto,2*,Auto,Auto"
+              VerticalOptions="Fill">
+
+            <!-- Shield Logo (teal shield with dark star) -->
+            <Border Grid.Row="1"
+                    StrokeShape="RoundRectangle 16,16,40,40"
+                    BackgroundColor="#4ECDC4"
+                    WidthRequest="140" HeightRequest="160"
+                    HorizontalOptions="Center"
+                    StrokeThickness="0">
+                <Label Text="&#x2605;"
+                       FontSize="50"
+                       TextColor="#1A2634"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Margin="0,8,0,0"/>
+            </Border>
+
+            <!-- App Name, Tagline, Features -->
+            <VerticalStackLayout Grid.Row="2"
+                                 Spacing="8"
+                                 HorizontalOptions="Center"
+                                 Margin="0,40,0,0">
+
+                <Label Text="AatmanAI"
+                       FontSize="36"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       CharacterSpacing="1.5"/>
+
+                <Label Text="Your Private Sanctuary"
+                       FontSize="22"
+                       TextColor="#E6E6E6"
+                       HorizontalOptions="Center"
+                       CharacterSpacing="0.5"/>
+
+                <!-- Features row -->
+                <HorizontalStackLayout HorizontalOptions="Center"
+                                       Spacing="0"
+                                       Margin="0,12,0,0">
+                    <Label Text="100% OFFLINE"
+                           FontSize="12"
+                           TextColor="#6B7280"
+                           CharacterSpacing="2"/>
+                    <Label Text="  &#x2022;  "
+                           FontSize="12"
+                           TextColor="#6B7280"/>
+                    <Label Text="SELF-INTELLIGENCE"
+                           FontSize="12"
+                           TextColor="#6B7280"
+                           CharacterSpacing="2"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Loading Section -->
+            <VerticalStackLayout Grid.Row="5"
+                                 Spacing="16"
+                                 HorizontalOptions="Fill"
+                                 Margin="48,0,48,0">
+
+                <Label Text="{Binding StatusText}"
+                       FontSize="11"
+                       TextColor="#4ECDC4"
+                       CharacterSpacing="1.5"
+                       HorizontalOptions="Center"/>
+
+                <!-- Progress bar: solid track + fill -->
+                <Grid HeightRequest="3" HorizontalOptions="Fill">
+                    <BoxView Color="#1E2A36"
+                             CornerRadius="2"
+                             HeightRequest="3"
+                             HorizontalOptions="Fill"/>
+                    <ProgressBar Progress="{Binding Progress, FallbackValue=0.0}"
+                                 ProgressColor="#4ECDC4"
+                                 HeightRequest="3"
+                                 HorizontalOptions="Fill"/>
+                </Grid>
+            </VerticalStackLayout>
+
+            <!-- Privacy Lock Icon -->
+            <Label Grid.Row="6"
+                   Text="&#x1F512;"
+                   FontSize="20"
+                   TextColor="#4B5563"
+                   HorizontalOptions="Center"
+                   Margin="0,40,0,40"/>
+        </Grid>
+    </Grid>
+</ContentPage>

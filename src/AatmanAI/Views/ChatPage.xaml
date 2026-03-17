@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             xmlns:models="clr-namespace:AatmanAI.Data.Models"
+             x:Class="AatmanAI.Views.ChatPage"
+             x:DataType="vm:ChatViewModel"
+             BackgroundColor="#0A0E14"
+             Title="{Binding ConversationTitle}"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="Auto,*,Auto" BackgroundColor="#0A0E14">
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             HEADER - Flutter: Container padding 16h,12v, bottom border grey.shade900 0.5
+             Row: [back] [scrollable: prompt-pill, language-pill, model-selector-pill]
+             ═══════════════════════════════════════════════════════════════ -->
+        <Grid x:Name="HeaderGrid" Grid.Row="0" BackgroundColor="#0A0E14">
+            <!-- Bottom border line: grey.shade900 = ~#212121, 0.5px -->
+            <BoxView HeightRequest="0.5" Color="#212121"
+                     VerticalOptions="End" HorizontalOptions="Fill"/>
+
+            <Grid Padding="16,12" ColumnDefinitions="Auto,*" ColumnSpacing="8">
+
+                <!-- Back button - Flutter: GestureDetector > Container padding 8 > Icon chevron_left 28 white -->
+                <Grid WidthRequest="44" HeightRequest="44"
+                      HorizontalOptions="Start" VerticalOptions="Center">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBackTapped"/>
+                    </Grid.GestureRecognizers>
+                    <Label Text="&#x276E;" FontSize="26"
+                           TextColor="White"
+                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+
+                <!-- Scrollable row of pills: prompt selector, language toggle, model selector -->
+                <ScrollView Grid.Column="1" Orientation="Horizontal"
+                            HorizontalScrollBarVisibility="Never"
+                            HorizontalOptions="End" VerticalOptions="Center">
+                    <HorizontalStackLayout Spacing="8">
+
+                        <!-- Prompt Folder Selector pill -->
+                        <Border StrokeShape="RoundRectangle 20"
+                                BackgroundColor="#1A2530"
+                                Stroke="Transparent"
+                                StrokeThickness="0"
+                                Padding="10,6"
+                                VerticalOptions="Center"
+                                MaximumWidthRequest="130">
+                            <HorizontalStackLayout Spacing="6">
+                                <Label Text="&#x2699;" FontSize="14"
+                                       TextColor="#9CA3AF"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding SelectedPromptName}" FontSize="12" FontAttributes="Bold"
+                                       TextColor="#9CA3AF"
+                                       VerticalOptions="Center"
+                                       LineBreakMode="TailTruncation"/>
+                            </HorizontalStackLayout>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectPromptCommand}"/>
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                        <!-- Language Toggle pill -->
+                        <Border StrokeShape="RoundRectangle 20"
+                                BackgroundColor="#1A2530"
+                                Stroke="Transparent"
+                                StrokeThickness="0"
+                                Padding="12,6"
+                                VerticalOptions="Center">
+                            <HorizontalStackLayout Spacing="6">
+                                <Label Text="&#x2641;" FontSize="14"
+                                       TextColor="#9CA3AF"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding SelectedLanguage}" FontSize="13" FontAttributes="Bold"
+                                       TextColor="#9CA3AF"
+                                       VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectLanguageCommand}"/>
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                        <!-- Model Selector pill -->
+                        <Border StrokeShape="RoundRectangle 20"
+                                BackgroundColor="#1A2530"
+                                Stroke="Transparent"
+                                StrokeThickness="0"
+                                Padding="12,6"
+                                MinimumWidthRequest="120"
+                                MaximumWidthRequest="220"
+                                VerticalOptions="Center">
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="8" HeightRequest="8"
+                                         Color="#00D9A5"
+                                         CornerRadius="4"
+                                         VerticalOptions="Center"/>
+                                <Label Text="{Binding ModelStatus}" FontSize="14"
+                                       TextColor="#00D9A5"
+                                       VerticalOptions="Center"
+                                       LineBreakMode="TailTruncation"
+                                       MaximumWidthRequest="150"/>
+                                <Label Text="&#x25BE;" FontSize="16"
+                                       TextColor="#FFFFFF88"
+                                       VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectModelCommand}"/>
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+            </Grid>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             MESSAGES LIST - Flutter: ListView.builder padding 16h,20v
+             ═══════════════════════════════════════════════════════════════ -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Messages}"
+                        x:Name="MessagesView"
+                        BackgroundColor="#0A0E14"
+                        ItemsUpdatingScrollMode="KeepLastItemInView">
+
+            <!-- Date header - Flutter: "TODAY, 3:45 PM", grey.shade500, fontSize 12, letterSpacing 0.5, bottom 24 -->
+            <CollectionView.Header>
+                <Label Text="{Binding TodayDateText}" FontSize="12"
+                       TextColor="#6B7280"
+                       BackgroundColor="#0A0E14"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Fill"
+                       CharacterSpacing="0.5"
+                       Padding="0,20,0,24"/>
+            </CollectionView.Header>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ChatMessage">
+                    <Grid Padding="16,0" BackgroundColor="#0A0E14">
+
+                        <!-- ─────────────────────────────────────────────
+                             USER MESSAGE BUBBLE
+                             Flutter: bg 00D9A5, radius 22 copyWith(bottomRight: 6)
+                             margin left:80, padding 18h 14v
+                             Below: copy button + "Read 3:45 PM" timestamp
+                             ───────────────────────────────────────────── -->
+                        <VerticalStackLayout IsVisible="{Binding IsUser}"
+                                             HorizontalOptions="End"
+                                             Spacing="6"
+                                             Margin="0,0,0,20">
+                            <!-- Bubble -->
+                            <Border StrokeShape="RoundRectangle 22,22,22,6"
+                                    BackgroundColor="#00D9A5"
+                                    Padding="18,14"
+                                    MaximumWidthRequest="280"
+                                    Stroke="Transparent"
+                                    StrokeThickness="0"
+                                    HorizontalOptions="End">
+                                <Label Text="{Binding Content}" FontSize="15"
+                                       TextColor="#000000"
+                                       LineHeight="1.5"
+                                       LineBreakMode="WordWrap"/>
+                            </Border>
+                            <!-- Timestamp row - Flutter: "Read 3:45 PM", grey.shade500 -->
+                            <HorizontalStackLayout HorizontalOptions="End" Spacing="8">
+                                <!-- Copy button -->
+                                <Border StrokeShape="RoundRectangle 8"
+                                        BackgroundColor="#374151"
+                                        Stroke="Transparent"
+                                        StrokeThickness="0"
+                                        Padding="6"
+                                        VerticalOptions="Center">
+                                    <Label Text="&#x2398;" FontSize="12"
+                                           TextColor="#9CA3AF"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Border>
+                                <Label Text="{Binding CreatedAt, StringFormat='Read {0:h:mm tt}'}"
+                                       FontSize="12" TextColor="#6B7280"
+                                       VerticalOptions="Center" Margin="0,0,4,0"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+
+                        <!-- ─────────────────────────────────────────────
+                             ASSISTANT MESSAGE BUBBLE
+                             Flutter: bg 1A2530, radius 20 copyWith(bottomLeft: 4)
+                             margin right:40, padding 16
+                             Inside: text + divider + token bar (memory icon + tokens/sec + spacer + "Locally Generated" + copy btn)
+                             Below bubble: 28x28 green circle avatar with psychology icon
+                             ───────────────────────────────────────────── -->
+                        <VerticalStackLayout IsVisible="{Binding IsAssistant}"
+                                             HorizontalOptions="Start"
+                                             Spacing="8"
+                                             Margin="0,0,0,20">
+                            <!-- Message bubble -->
+                            <Border StrokeShape="RoundRectangle 20,20,20,4"
+                                    BackgroundColor="#1A2530"
+                                    Padding="16"
+                                    MaximumWidthRequest="320"
+                                    Stroke="Transparent"
+                                    StrokeThickness="0"
+                                    HorizontalOptions="Start">
+                                <Label Text="{Binding Content}" FontSize="15"
+                                       TextColor="White"
+                                       LineHeight="1.5"
+                                       LineBreakMode="WordWrap"/>
+                            </Border>
+
+                            <!-- Avatar below bubble - Flutter: 28x28 circle, bg 00D9A5, psychology icon black -->
+                            <Border StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#00D9A5"
+                                    Stroke="Transparent"
+                                    StrokeThickness="0"
+                                    WidthRequest="28" HeightRequest="28"
+                                    HorizontalOptions="Start">
+                                <Label Text="&#x2756;" FontSize="14"
+                                       TextColor="#000000"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.Footer>
+                <BoxView HeightRequest="12" Color="#0A0E14"/>
+            </CollectionView.Footer>
+
+            <!-- Empty state - Flutter: psychology icon in circle + "Start a secure conversation" + subtitle -->
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                    <Border StrokeShape="RoundRectangle 40"
+                            BackgroundColor="#122B26"
+                            Stroke="Transparent"
+                            StrokeThickness="0"
+                            WidthRequest="80" HeightRequest="80"
+                            HorizontalOptions="Center">
+                        <Label Text="&#x2756;" FontSize="36"
+                               TextColor="#00D9A5"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <BoxView HeightRequest="16" Color="Transparent"/>
+                    <Label Text="Start a secure conversation"
+                           FontSize="18" FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Your messages never leave this device"
+                           FontSize="14"
+                           TextColor="#6B7280"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             INPUT AREA + FOOTER
+             Flutter: padding 20h 12v
+             - Capability chips row (conditional, skip for now)
+             - Input container: transparent bg, border 2A3441 1.5px, radius 32, padding 8
+               Row: [add-circle] [textfield] [mic] [send/stop button]
+             - Footer: "Aatman AI 360 . Private & Encrypted", grey.shade600, 12
+             ═══════════════════════════════════════════════════════════════ -->
+        <VerticalStackLayout Grid.Row="2" Spacing="0" BackgroundColor="#0A0E14">
+
+            <!-- Generating indicator -->
+            <HorizontalStackLayout IsVisible="{Binding IsGenerating}"
+                                   HorizontalOptions="Start"
+                                   Margin="24,4,0,4"
+                                   Spacing="10">
+                <ActivityIndicator IsRunning="{Binding IsGenerating}"
+                                   Color="#00D9A5"
+                                   WidthRequest="18"
+                                   HeightRequest="18"
+                                   VerticalOptions="Center"/>
+                <Label Text="Generating..."
+                       FontSize="12"
+                       FontAttributes="Italic"
+                       TextColor="#00D9A5"
+                       VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+
+            <!-- Input container - Flutter: transparent bg, border 2A3441 1.5px, radius 32, padding 8 -->
+            <Border BackgroundColor="Transparent"
+                    Stroke="#2A3441"
+                    StrokeThickness="1.5"
+                    StrokeShape="RoundRectangle 32"
+                    Padding="8"
+                    Margin="20,8,20,12">
+                <Grid ColumnDefinitions="36,*,36,44" ColumnSpacing="8">
+
+                    <!-- Add button - Flutter: circle, transparent bg, border 3A4551 1px, add icon grey -->
+                    <Border StrokeShape="RoundRectangle 18"
+                            BackgroundColor="Transparent"
+                            Stroke="#3A4551"
+                            StrokeThickness="1"
+                            WidthRequest="36" HeightRequest="36"
+                            HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="+" FontSize="20"
+                               TextColor="#6B7280"
+                               HorizontalOptions="Center" VerticalOptions="Center"
+                               Margin="0,-2,0,0"/>
+                    </Border>
+
+                    <!-- Text field - Flutter: hint "Type securely...", grey.shade600, 15 -->
+                    <Entry Grid.Column="1" Placeholder="Type securely..."
+                           PlaceholderColor="#4B5563"
+                           TextColor="White"
+                           BackgroundColor="Transparent"
+                           Text="{Binding InputText}"
+                           ReturnCommand="{Binding SendCommand}"
+                           FontSize="15"
+                           VerticalOptions="Center"/>
+
+                    <!-- Mic icon - Flutter: mic_none_outlined, grey.shade700, 24 -->
+                    <Label Grid.Column="2" Text="&#x266B;" FontSize="20"
+                           TextColor="#374151"
+                           HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                    <!-- Send button - Flutter: gradient 00D9A5 to 00B388, radius 22, arrow_upward icon black -->
+                    <Border Grid.Column="3"
+                            StrokeShape="RoundRectangle 22"
+                            BackgroundColor="#00D9A5"
+                            Stroke="Transparent"
+                            StrokeThickness="0"
+                            WidthRequest="44" HeightRequest="44"
+                            IsVisible="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SendCommand}"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="&#x2191;" FontSize="22" FontAttributes="Bold"
+                               TextColor="#000000"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+
+                    <!-- Stop button - Flutter: red.shade700, radius 22, stop icon white -->
+                    <Border Grid.Column="3"
+                            StrokeShape="RoundRectangle 22"
+                            BackgroundColor="#B91C1C"
+                            Stroke="Transparent"
+                            StrokeThickness="0"
+                            WidthRequest="44" HeightRequest="44"
+                            IsVisible="{Binding IsGenerating}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding StopCommand}"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="&#x25A0;" FontSize="16"
+                               TextColor="White"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+            <!-- Footer - Flutter: "Aatman AI 360 . Private & Encrypted", grey.shade600, 12, bottom 8 -->
+            <Label x:Name="FooterLabel" Text="Aatman AI 360 &#x2022; Private &amp; Encrypted"
+                   FontSize="12" TextColor="#4B5563"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,8"/>
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>

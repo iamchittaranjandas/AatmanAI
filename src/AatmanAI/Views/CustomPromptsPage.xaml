@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             xmlns:models="clr-namespace:AatmanAI.Data.Models"
+             x:Class="AatmanAI.Views.CustomPromptsPage"
+             x:DataType="vm:CustomPromptsViewModel"
+             BackgroundColor="#0A0E14"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Title="Prompt Folders">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- ===== CUSTOM APP BAR (matches Flutter AppBar) ===== -->
+        <Grid Grid.Row="0" Padding="8,12,8,8" ColumnDefinitions="Auto,*,Auto"
+              BackgroundColor="#0A0E14">
+            <!-- Back arrow (visible only inside a folder, like Flutter's default back) -->
+            <Border StrokeShape="RoundRectangle 8"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    IsVisible="{Binding IsFolderSelected}"
+                    Padding="8,6">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackToFoldersCommand}"/>
+                </Border.GestureRecognizers>
+                <Label Text="&#x2190;" FontSize="22" TextColor="White"
+                       VerticalOptions="Center"/>
+            </Border>
+
+            <!-- Title -->
+            <Label Grid.Column="1" Text="Prompt Folders" FontSize="20" FontAttributes="Bold"
+                   TextColor="White" VerticalOptions="Center"
+                   Margin="8,0,0,0"/>
+
+            <!-- Create folder icon in app bar (Flutter: Icons.create_new_folder_outlined) -->
+            <Border Grid.Column="2" StrokeShape="RoundRectangle 8"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    Padding="8,6"
+                    IsVisible="{Binding IsFolderSelected, Converter={StaticResource InverseBoolConverter}}">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowAddFolderCommand}"/>
+                </Border.GestureRecognizers>
+                <Label Text="&#x2795;" FontSize="18" TextColor="White"
+                       VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Border>
+        </Grid>
+
+        <!-- ===== MAIN SCROLLABLE CONTENT ===== -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="12" Padding="16,8,16,16">
+
+                <!-- ===== FOLDER LIST (when no folder selected) ===== -->
+                <VerticalStackLayout
+                    IsVisible="{Binding IsFolderSelected, Converter={StaticResource InverseBoolConverter}}"
+                    Spacing="10">
+
+                    <CollectionView ItemsSource="{Binding Folders}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:CustomPromptFolder">
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Delete" BackgroundColor="#FF4444"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CustomPromptsViewModel}}, Path=DeleteFolderCommand}"
+                                                       CommandParameter="{Binding .}"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <!-- Card with RoundRectangle 14 (Flutter: Card borderRadius 14) -->
+                                    <Border StrokeShape="RoundRectangle 14"
+                                            BackgroundColor="#1A2530"
+                                            Stroke="#2A3540"
+                                            StrokeThickness="1"
+                                            Padding="14,12" Margin="0,4">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CustomPromptsViewModel}}, Path=SelectFolderCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                                            <!-- Folder icon badge -->
+                                            <Border StrokeShape="RoundRectangle 12"
+                                                    BackgroundColor="#0F2A22"
+                                                    WidthRequest="46" HeightRequest="46"
+                                                    StrokeThickness="0">
+                                                <Label Text="&#x2750;" FontSize="22" TextColor="#00D9A5"
+                                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            </Border>
+                                            <!-- Folder name + prompt count (Flutter: title + subtitle) -->
+                                            <VerticalStackLayout Grid.Column="1" Spacing="2"
+                                                                 VerticalOptions="Center">
+                                                <Label Text="{Binding Name}" FontSize="16"
+                                                       FontAttributes="Bold" TextColor="White"/>
+                                                <Label Text="{Binding Prompts.Count, StringFormat='{0} prompts'}"
+                                                       FontSize="12" TextColor="#6B7280"/>
+                                            </VerticalStackLayout>
+                                            <!-- Chevron (Flutter: ExpansionTile arrow area) -->
+                                            <Label Grid.Column="2" Text="&#x276F;" FontSize="14"
+                                                   TextColor="#6B7280"
+                                                   VerticalOptions="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <!-- Flutter: empty state with icon, text, and Create Folder button -->
+                            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center"
+                                                 Spacing="12" Margin="0,60">
+                                <Label Text="&#x2750;" FontSize="56" TextColor="#4B5563"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="No folders yet"
+                                       TextColor="#9CA3AF" FontSize="18" FontAttributes="Bold"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="Create a folder and save custom prompts for specific answer styles."
+                                       TextColor="#6B7280" FontSize="13"
+                                       HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                                       Margin="24,0"/>
+                                <Button Text="+ Create Folder"
+                                        Command="{Binding ShowAddFolderCommand}"
+                                        BackgroundColor="#00D9A5"
+                                        TextColor="#0A0E14" CornerRadius="12"
+                                        FontAttributes="Bold" HeightRequest="46"
+                                        HorizontalOptions="Center" Padding="24,0"
+                                        Margin="0,8,0,0"/>
+                            </VerticalStackLayout>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+
+                    <!-- Inline Create Folder Form -->
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#1A2530"
+                            Stroke="#00D9A5"
+                            StrokeThickness="1"
+                            Padding="20,16"
+                            IsVisible="{Binding IsAddingFolder}">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="Create Folder" FontSize="16" FontAttributes="Bold"
+                                   TextColor="White"/>
+                            <Border StrokeShape="RoundRectangle 10"
+                                    BackgroundColor="#0A0E14"
+                                    Stroke="#2A3540"
+                                    StrokeThickness="1"
+                                    Padding="4,0">
+                                <Entry Placeholder="Folder name" Text="{Binding NewFolderName}"
+                                       TextColor="White"
+                                       PlaceholderColor="#6B7280"
+                                       BackgroundColor="Transparent" FontSize="14"/>
+                            </Border>
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                <Button Text="Cancel" Command="{Binding CancelAddCommand}"
+                                        BackgroundColor="#0A0E14"
+                                        TextColor="#9CA3AF" CornerRadius="12"
+                                        HeightRequest="46"/>
+                                <Button Grid.Column="1" Text="Create"
+                                        Command="{Binding CreateFolderCommand}"
+                                        BackgroundColor="#00D9A5"
+                                        TextColor="#0A0E14" CornerRadius="12"
+                                        FontAttributes="Bold" HeightRequest="46"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- ===== PROMPT LIST (when folder selected) ===== -->
+                <VerticalStackLayout IsVisible="{Binding IsFolderSelected}" Spacing="10">
+
+                    <!-- Selected folder header -->
+                    <VerticalStackLayout Spacing="4" Padding="4,0,0,8">
+                        <Label Text="{Binding SelectedFolder.Name}" FontSize="22"
+                               FontAttributes="Bold" TextColor="White"/>
+                        <Label Text="{Binding Prompts.Count, StringFormat='{0} prompts'}"
+                               FontSize="12" TextColor="#6B7280"/>
+                    </VerticalStackLayout>
+
+                    <CollectionView ItemsSource="{Binding Prompts}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:CustomPrompt">
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Delete" BackgroundColor="#FF4444"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CustomPromptsViewModel}}, Path=DeletePromptCommand}"
+                                                       CommandParameter="{Binding .}"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <!-- Prompt card -->
+                                    <Border StrokeShape="RoundRectangle 14"
+                                            BackgroundColor="#1A2530"
+                                            Stroke="#2A3540"
+                                            StrokeThickness="1"
+                                            Padding="14,12" Margin="0,4">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CustomPromptsViewModel}}, Path=EditPromptCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                                            <!-- Prompt icon badge -->
+                                            <Border StrokeShape="RoundRectangle 12"
+                                                    BackgroundColor="#0F2A22"
+                                                    WidthRequest="46" HeightRequest="46"
+                                                    StrokeThickness="0">
+                                                <Label Text="&#x2726;" FontSize="22" TextColor="#00D9A5"
+                                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            </Border>
+                                            <!-- Title + prompt preview -->
+                                            <VerticalStackLayout Grid.Column="1" Spacing="4"
+                                                                 VerticalOptions="Center">
+                                                <Label Text="{Binding Title}" FontSize="15"
+                                                       FontAttributes="Bold" TextColor="White"/>
+                                                <Label Text="{Binding Prompt}" FontSize="12" MaxLines="2"
+                                                       LineBreakMode="TailTruncation"
+                                                       TextColor="#9CA3AF"/>
+                                            </VerticalStackLayout>
+                                            <!-- Edit indicator -->
+                                            <Label Grid.Column="2" Text="&#x270E;" FontSize="16"
+                                                   TextColor="#6B7280"
+                                                   VerticalOptions="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center"
+                                                 Spacing="12" Margin="0,40">
+                                <Label Text="&#x2726;" FontSize="48" TextColor="#4B5563"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="No prompts yet"
+                                       TextColor="#9CA3AF" FontSize="16" FontAttributes="Bold"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="Add one to get specific answers."
+                                       TextColor="#6B7280" FontSize="13"
+                                       HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+
+                    <!-- Inline Add/Edit Prompt Form -->
+                    <Border StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#1A2530"
+                            Stroke="#00D9A5"
+                            StrokeThickness="1"
+                            Padding="20,18"
+                            IsVisible="{Binding IsAddingPrompt}">
+                        <VerticalStackLayout Spacing="14">
+                            <Label FontSize="16" FontAttributes="Bold" TextColor="White">
+                                <Label.Text>
+                                    <Binding Path="IsEditingPrompt">
+                                        <Binding.Converter>
+                                            <local:BoolToStringConverter
+                                                xmlns:local="clr-namespace:AatmanAI.Views"
+                                                TrueValue="Edit Prompt" FalseValue="Add Prompt"/>
+                                        </Binding.Converter>
+                                    </Binding>
+                                </Label.Text>
+                            </Label>
+
+                            <!-- Prompt Title -->
+                            <Border StrokeShape="RoundRectangle 10"
+                                    BackgroundColor="#0A0E14"
+                                    Stroke="#2A3540"
+                                    StrokeThickness="1" Padding="4,0">
+                                <Entry Placeholder="Prompt Title" Text="{Binding NewPromptTitle}"
+                                       TextColor="White"
+                                       PlaceholderColor="#6B7280"
+                                       BackgroundColor="Transparent" FontSize="14"/>
+                            </Border>
+
+                            <!-- Custom Prompt -->
+                            <Border StrokeShape="RoundRectangle 10"
+                                    BackgroundColor="#0A0E14"
+                                    Stroke="#2A3540"
+                                    StrokeThickness="1" Padding="8">
+                                <Editor Placeholder="Example: Answer as a finance mentor with short steps."
+                                        Text="{Binding NewPromptContent}"
+                                        TextColor="White"
+                                        PlaceholderColor="#6B7280"
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="150" AutoSize="TextChanges" FontSize="13"/>
+                            </Border>
+
+                            <!-- Action Buttons -->
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                <Button Text="Cancel" Command="{Binding CancelAddCommand}"
+                                        BackgroundColor="#0A0E14"
+                                        TextColor="#9CA3AF" CornerRadius="12"
+                                        HeightRequest="46"/>
+                                <Button Grid.Column="1" Text="Save"
+                                        Command="{Binding SavePromptCommand}"
+                                        BackgroundColor="#00D9A5"
+                                        TextColor="#0A0E14" CornerRadius="12"
+                                        FontAttributes="Bold" HeightRequest="46"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- ===== FAB - Folder view (Flutter: FloatingActionButton.extended "+ Folder") ===== -->
+        <Button Grid.Row="2" Text="+ Folder" FontSize="14" FontAttributes="Bold"
+                HeightRequest="48" CornerRadius="24"
+                BackgroundColor="#00D9A5"
+                TextColor="#0A0E14"
+                HorizontalOptions="End" VerticalOptions="End"
+                Margin="0,0,20,20"
+                Padding="20,0"
+                Command="{Binding ShowAddFolderCommand}"
+                IsVisible="{Binding IsFolderSelected, Converter={StaticResource InverseBoolConverter}}"/>
+
+        <!-- ===== FAB - Prompt view ===== -->
+        <Button Grid.Row="2" Text="+ Prompt" FontSize="14" FontAttributes="Bold"
+                HeightRequest="48" CornerRadius="24"
+                BackgroundColor="#00D9A5"
+                TextColor="#0A0E14"
+                HorizontalOptions="End" VerticalOptions="End"
+                Margin="0,0,20,20"
+                Padding="20,0"
+                Command="{Binding ShowAddPromptCommand}"
+                IsVisible="{Binding IsFolderSelected}"/>
+    </Grid>
+</ContentPage>

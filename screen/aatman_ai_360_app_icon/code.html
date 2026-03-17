@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aatman AI Welcome Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bbdee",
+                        "brand-indigo": "#111e22",
+                        "brand-indigo-light": "#1a2c32",
+                        "brand-gold": "#d4af37",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'progress': 'progress 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        progress: {
+                            '0%': { width: '0%' },
+                            '50%': { width: '40%' },
+                            '100%': { width: '100%' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .lotus-gradient-text {
+            background: linear-gradient(135deg, #FFD700 0%, #2bbdee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-pattern {
+             background-image: radial-gradient(#ffffff 1px, transparent 1px);
+             background-size: 24px 24px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-brand-indigo font-display text-white min-h-screen flex flex-col relative overflow-hidden selection:bg-brand-gold selection:text-brand-indigo">
+<div class="absolute inset-0 opacity-5 pointer-events-none bg-repeat" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBfdIARAFUX3wtjQkzposddYqTxle5nv5fk-u94Eqr3bbbQRR2ABJEq6ySqFioKYJWBPW3SucdoLdsnVpcYON4JkygMK_nkzh0L0FbT62_DEnCJzn-JXgvJhrjqXoQykftf09DZjfVCXB1v_hvLPoO2_AwPxbwXpkKBkkOHuU2J2BrCJMfFiYNa5nROsb7bTAhaEhbQnZqnN4ZRXJqDKNmq9SKp_uM6C-FGe5OLAXT_8M8dAUfEIiJ4Il287Mqzrj4bVE53wZtp824');"></div>
+<div class="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-primary/10 to-transparent opacity-40 pointer-events-none"></div>
+<div class="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-brand-indigo via-brand-indigo to-transparent pointer-events-none"></div>
+<div class="w-full h-12 flex items-center justify-between px-6 z-20 opacity-0">
+</div>
+<div class="flex-1 flex flex-col items-center justify-center w-full px-6 relative z-10 pb-20">
+<div class="relative w-64 h-64 mb-10 flex items-center justify-center">
+<div class="absolute inset-0 bg-primary/20 blur-[60px] rounded-full animate-pulse-slow"></div>
+<svg class="w-48 h-48 drop-shadow-2xl" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="iconGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#FFD700;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#2bbdee;stop-opacity:1"></stop>
+</linearGradient>
+</defs>
+<path d="M12 2L4.5 5V10.5C4.5 15.12 7.7 19.43 12 20.5C16.3 19.43 19.5 15.12 19.5 10.5V5L12 2Z" fill="url(#iconGrad)" opacity="0.1"></path>
+<path d="M12 4L14 9H19L15 12L16.5 17L12 14L7.5 17L9 12L5 9H10L12 4Z" fill="url(#iconGrad)"></path>
+<path d="M12 21C7.5 19.8 4 15.5 4 10.5V5.5L12 2.5L20 5.5V10.5C20 15.5 16.5 19.8 12 21ZM12 4.3L6 6.5V10.5C6 14.4 8.7 18.1 12 19.1C15.3 18.1 18 14.4 18 10.5V6.5L12 4.3Z" fill="url(#iconGrad)"></path>
+</svg>
+</div>
+<div class="text-center space-y-4 max-w-sm">
+<h1 class="text-4xl font-bold tracking-tight leading-tight text-white drop-shadow-lg">
+                Aatman AI:<br/>
+<span class="font-light text-gray-300">Your Private Sanctuary</span>
+</h1>
+<p class="text-gray-400 text-sm font-medium tracking-widest uppercase pt-2 opacity-80">
+                100% Offline • Self-Intelligence
+            </p>
+</div>
+</div>
+<div class="w-full px-10 pb-16 relative z-10 flex flex-col items-center gap-5">
+<p class="text-xs font-semibold tracking-widest text-brand-gold uppercase animate-pulse">
+            Extracting your local intelligence...
+        </p>
+<div class="w-full max-w-[280px] h-[2px] bg-gray-800 rounded-full overflow-hidden relative">
+<div class="absolute top-0 left-0 h-full w-1/2 bg-gradient-to-r from-transparent via-brand-gold to-primary rounded-full animate-[slide_2s_ease-in-out_infinite]" style="transform: translateX(-100%); animation: slide 2.5s infinite linear;"></div>
+</div>
+<div class="mt-2 opacity-30">
+<span class="material-symbols-outlined text-white text-xl">lock</span>
+</div>
+</div>
+<style>
+        @keyframes slide {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+    </style>
+
+</body></html>

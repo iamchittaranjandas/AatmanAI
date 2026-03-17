@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             x:Class="AatmanAI.Views.FirstLaunchPage"
+             x:DataType="vm:FirstLaunchViewModel"
+             BackgroundColor="#0A0E14"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+
+    <ScrollView>
+        <Grid RowDefinitions="2*,Auto,Auto,Auto,Auto,3*,Auto,Auto"
+              Padding="24"
+              VerticalOptions="FillAndExpand">
+
+            <!-- Pulsing icon in circular radial glow -->
+            <Border Grid.Row="1"
+                    StrokeShape="RoundRectangle 60"
+                    StrokeThickness="0"
+                    WidthRequest="120"
+                    HeightRequest="120"
+                    HorizontalOptions="Center">
+                <Border.Background>
+                    <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
+                        <GradientStop Color="#4D00D9A5" Offset="0.0" />
+                        <GradientStop Color="#1A00D9A5" Offset="0.6" />
+                        <GradientStop Color="Transparent" Offset="1.0" />
+                    </RadialGradientBrush>
+                </Border.Background>
+                <Label Text="&#x2B22;"
+                       FontSize="64"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <!-- Title -->
+            <Label Grid.Row="2"
+                   Text="Setting Up Your Ghost"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,40,0,0" />
+
+            <!-- Status text + model name pill badge -->
+            <VerticalStackLayout Grid.Row="3"
+                                 Spacing="8"
+                                 HorizontalOptions="Center"
+                                 Margin="0,12,0,0">
+
+                <Label Text="{Binding StatusText}"
+                       FontSize="16"
+                       TextColor="#9CA3AF"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center" />
+
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#1A2530"
+                        Padding="12,6"
+                        HorizontalOptions="Center"
+                        StrokeThickness="0"
+                        IsVisible="{Binding ModelName, Converter={StaticResource IsNotEmptyConverter}}">
+                    <Label Text="{Binding ModelName}"
+                           FontSize="12"
+                           TextColor="#00D9A5" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Progress bar + percentage (visible while downloading) -->
+            <VerticalStackLayout Grid.Row="4"
+                                 Spacing="12"
+                                 Margin="0,40,0,0"
+                                 IsVisible="{Binding IsDownloading}">
+
+                <Border StrokeShape="RoundRectangle 4"
+                        BackgroundColor="#1A2530"
+                        HeightRequest="8"
+                        HorizontalOptions="Fill"
+                        StrokeThickness="0"
+                        Padding="0">
+                    <ProgressBar Progress="{Binding Progress}"
+                                 ProgressColor="#00D9A5"
+                                 HeightRequest="8" />
+                </Border>
+
+                <Label Text="{Binding ProgressText}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Info text (hidden once downloading starts) -->
+            <Label Grid.Row="6"
+                   Text="This offline AI model will enable instant offline conversations."
+                   FontSize="13"
+                   TextColor="#6B7280"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   IsVisible="{Binding IsDownloading, Converter={StaticResource InverseBoolConverter}}"
+                   Margin="0,0,0,20" />
+
+            <!-- Action buttons -->
+            <VerticalStackLayout Grid.Row="7" Spacing="12">
+
+                <Button Text="BEGIN JOURNEY  &#x2192;"
+                        Command="{Binding StartDownloadCommand}"
+                        BackgroundColor="#00D9A5"
+                        TextColor="#0A0E14"
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        CornerRadius="14"
+                        HeightRequest="56"
+                        CharacterSpacing="2"
+                        IsVisible="{Binding IsDownloading, Converter={StaticResource InverseBoolConverter}}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" />
+
+                <Button Text="Skip for now"
+                        Command="{Binding SkipCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="#6B7280"
+                        FontSize="14"
+                        BorderWidth="0" />
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

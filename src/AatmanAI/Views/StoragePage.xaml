@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             xmlns:models="clr-namespace:AatmanAI.Data.Models"
+             x:Class="AatmanAI.Views.StoragePage"
+             x:DataType="vm:StorageViewModel"
+             BackgroundColor="#0A0E14"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Title="Storage Manager">
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Header -->
+        <Grid ColumnDefinitions="Auto,*,Auto" Padding="16,12" ColumnSpacing="0">
+            <Border StrokeShape="RoundRectangle 10"
+                    BackgroundColor="Transparent"
+                    WidthRequest="40" HeightRequest="40"
+                    StrokeThickness="0">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={x:Static Shell.Current}, Path=GoToAsync}"
+                                          CommandParameter=".."/>
+                </Border.GestureRecognizers>
+                <Label Text="&#x2190;" FontSize="24" TextColor="White"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+            <Label Grid.Column="1" Text="Storage Manager"
+                   FontSize="18" FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
+            <BoxView Grid.Column="2" WidthRequest="40"/>
+        </Grid>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,8,20,20">
+
+                <!-- Hero Section -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Local Storage" FontSize="32" FontAttributes="Bold"
+                           TextColor="White"/>
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="&#x29C9;" FontSize="18" TextColor="#6B7280"/>
+                        <Label Text="100% Offline Intelligence" FontSize="15"
+                               TextColor="#6B7280"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Spacer -->
+                <BoxView HeightRequest="24" Color="Transparent"/>
+
+                <!-- Usage Card -->
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#151C22"
+                        Stroke="#2A3540"
+                        StrokeThickness="1"
+                        Padding="20">
+                    <VerticalStackLayout Spacing="20">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="CURRENT USAGE" FontSize="11"
+                                       TextColor="#6B7280"
+                                       CharacterSpacing="1"/>
+                                <HorizontalStackLayout Spacing="0">
+                                    <Label Text="{Binding TotalModelsSize}" FontSize="36" FontAttributes="Bold"
+                                           TextColor="White" VerticalOptions="End"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" HorizontalOptions="End"
+                                                 VerticalOptions="Start">
+                                <Label Text="AVAILABLE" FontSize="11"
+                                       TextColor="#6B7280"
+                                       CharacterSpacing="1" HorizontalTextAlignment="End"/>
+                                <Label Text="{Binding FreeStorage}" FontSize="18" FontAttributes="Bold"
+                                       TextColor="#9CA3AF" HorizontalTextAlignment="End"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <!-- Multi-color Progress Bar -->
+                        <Border StrokeShape="RoundRectangle 6"
+                                BackgroundColor="#374151"
+                                HeightRequest="12"
+                                StrokeThickness="0">
+                            <Grid ColumnDefinitions="7*,2*,1*,10*">
+                                <Border StrokeShape="RoundRectangle 6,0,0,6"
+                                        BackgroundColor="#FFD54F"
+                                        StrokeThickness="0"/>
+                                <Border Grid.Column="1"
+                                        BackgroundColor="#00D9A5"
+                                        StrokeThickness="0"/>
+                                <Border Grid.Column="2"
+                                        BackgroundColor="#6C5CE7"
+                                        StrokeThickness="0"/>
+                                <Border Grid.Column="3"
+                                        BackgroundColor="Transparent"
+                                        StrokeThickness="0"/>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Spacer -->
+                <BoxView HeightRequest="24" Color="Transparent"/>
+
+                <!-- Storage Categories -->
+                <VerticalStackLayout Spacing="12">
+
+                    <!-- AI Models Card -->
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#151C22"
+                            Stroke="#2A3540"
+                            StrokeThickness="1"
+                            Padding="16">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
+                            <Border StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#332D00"
+                                    WidthRequest="52" HeightRequest="52"
+                                    StrokeThickness="0">
+                                <Label Text="&#x2B22;" FontSize="26" TextColor="#FFD54F"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <HorizontalStackLayout Spacing="8">
+                                    <Border StrokeShape="RoundRectangle 4"
+                                            BackgroundColor="#FFD54F"
+                                            WidthRequest="8" HeightRequest="8"
+                                            StrokeThickness="0" VerticalOptions="Center"/>
+                                    <Label Text="AI Models" FontSize="16" FontAttributes="Bold"
+                                           TextColor="White"/>
+                                </HorizontalStackLayout>
+                                <Label FontSize="13" TextColor="#6B7280">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding DownloadedModels.Count}"/>
+                                            <Span Text=" models downloaded"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="{Binding TotalModelsSize}" FontSize="15" FontAttributes="Bold"
+                                   TextColor="White" VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Chat History Card -->
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#151C22"
+                            Stroke="#2A3540"
+                            StrokeThickness="1"
+                            Padding="16">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
+                            <Border StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#002E24"
+                                    WidthRequest="52" HeightRequest="52"
+                                    StrokeThickness="0">
+                                <Label Text="&#x25EC;" FontSize="26" TextColor="#00D9A5"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <HorizontalStackLayout Spacing="8">
+                                    <Border StrokeShape="RoundRectangle 4"
+                                            BackgroundColor="#00D9A5"
+                                            WidthRequest="8" HeightRequest="8"
+                                            StrokeThickness="0" VerticalOptions="Center"/>
+                                    <Label Text="Chat History" FontSize="16" FontAttributes="Bold"
+                                           TextColor="White"/>
+                                </HorizontalStackLayout>
+                                <Label Text="Conversations &amp; memories" FontSize="13"
+                                       TextColor="#6B7280"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="{Binding ChatHistorySize}" FontSize="15" FontAttributes="Bold"
+                                   TextColor="White" VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- System Cache Card -->
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#151C22"
+                            Stroke="#2A3540"
+                            StrokeThickness="1"
+                            Padding="16">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
+                            <Border StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#1A1040"
+                                    WidthRequest="52" HeightRequest="52"
+                                    StrokeThickness="0">
+                                <Label Text="&#x2261;" FontSize="26" TextColor="#6C5CE7"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <HorizontalStackLayout Spacing="8">
+                                    <Border StrokeShape="RoundRectangle 4"
+                                            BackgroundColor="#6C5CE7"
+                                            WidthRequest="8" HeightRequest="8"
+                                            StrokeThickness="0" VerticalOptions="Center"/>
+                                    <Label Text="System Cache" FontSize="16" FontAttributes="Bold"
+                                           TextColor="White"/>
+                                </HorizontalStackLayout>
+                                <Label Text="Temporary indexing files" FontSize="13"
+                                       TextColor="#6B7280"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="0 B" FontSize="15" FontAttributes="Bold"
+                                   TextColor="White" VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- Spacer -->
+                <BoxView HeightRequest="32" Color="Transparent"/>
+
+                <!-- Warning Note -->
+                <Border StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#2A1515"
+                        Stroke="#4A2020"
+                        StrokeThickness="1"
+                        Padding="16">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Label Text="&#x24D8;" FontSize="20" TextColor="#CC5555"
+                               VerticalOptions="Start"/>
+                        <Label Grid.Column="1" FontSize="14" TextColor="#9CA3AF"
+                               LineBreakMode="WordWrap"
+                               LineHeight="1.4">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Note: " FontAttributes="Bold" TextColor="#CC5555"/>
+                                    <Span Text="Clearing cache may slightly slow down initial response times as the AI re-indexes your vault."/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+                </Border>
+
+                <!-- Spacer -->
+                <BoxView HeightRequest="20" Color="Transparent"/>
+
+                <!-- Clear Cache Button -->
+                <Button Text="&#x2716;  Clear Cache"
+                        Command="{Binding ClearChatHistoryCommand}"
+                        BackgroundColor="#2A1515"
+                        TextColor="#FF6B6B"
+                        BorderColor="#FF6B6B"
+                        BorderWidth="1.5" CornerRadius="14"
+                        FontAttributes="Bold" FontSize="16" HeightRequest="56"/>
+
+                <!-- Spacer -->
+                <BoxView HeightRequest="24" Color="Transparent"/>
+
+                <!-- Version Footer -->
+                <Label Text="AATMAN AI V1.0.0 &#x2022; SECURE STORAGE" FontSize="11"
+                       TextColor="#4B5563"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" CharacterSpacing="1.5"/>
+
+                <!-- Bottom padding -->
+                <BoxView HeightRequest="20" Color="Transparent"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

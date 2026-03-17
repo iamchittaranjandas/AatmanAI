@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Model Sanctuary Marketplace</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ecc8",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#10101c", // Modified to Deep Indigo
+                        "surface-dark": "#1a1a2e",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "2rem", "full": "9999px"},
+                    backgroundImage: {
+                        'gradient-gold-teal': 'linear-gradient(135deg, #d4af37 0%, #13ecc8 100%)',
+                        'glass-card': 'linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hiding */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased text-slate-900 dark:text-white transition-colors duration-300">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto shadow-2xl">
+<!-- Ambient Background Glows -->
+<div class="fixed top-[-10%] left-[-10%] w-[50%] h-[40%] bg-primary/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+<div class="fixed bottom-[10%] right-[-10%] w-[60%] h-[50%] bg-[#4f46e5]/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+<!-- TopAppBar -->
+<header class="flex items-center px-6 py-4 justify-between z-10 backdrop-blur-md sticky top-0 border-b border-white/5 bg-background-dark/80">
+<button class="text-white/80 hover:text-primary transition-colors flex size-10 items-center justify-center rounded-full active:bg-white/5">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<h1 class="text-white text-lg font-bold leading-tight tracking-tight flex-1 text-center">Model Sanctuary</h1>
+<div class="flex w-10 items-center justify-end">
+<button class="text-primary text-sm font-bold tracking-wide hover:text-primary/80 transition-colors">Restore</button>
+</div>
+</header>
+<!-- BodyText: Intro -->
+<div class="relative z-10 px-6 pt-6 pb-2">
+<h2 class="text-3xl font-light text-white mb-2 leading-tight">Offline Intelligence <br/><span class="text-primary font-bold">Library</span></h2>
+<p class="text-white/60 text-sm font-light leading-relaxed">
+                Select a Ghost to inhabit your device. Optimized for privacy and local execution.
+            </p>
+</div>
+<!-- Carousel: Model Cards -->
+<main class="relative z-10 flex-1 flex flex-col justify-center py-4">
+<div class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8 pt-2 px-6 gap-5">
+<!-- Card 1: Lite Ghost -->
+<div class="snap-center shrink-0 w-[85%] max-w-[320px] flex flex-col rounded-3xl overflow-hidden border border-white/10 bg-glass-card shadow-lg backdrop-blur-xl transition-transform active:scale-[0.98]">
+<!-- Image Area -->
+<div class="relative h-48 w-full bg-black/20 overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent z-10"></div>
+<div class="w-full h-full bg-cover bg-center opacity-80 mix-blend-overlay group-hover:scale-110 transition-transform duration-700" data-alt="Abstract minimalist geometric shape representing speed and lightness" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyp5RSnteRKSl3BhoO42sexNtvMjb8oWo-56XU7yHNaL-MLyKdjB_Cnva-IyZrwRnhmnKr1-cZrozR2-UNd50uoG0rTNA3Tec19xhutoRYhqrrw2gkO0T-dPF4j4gK5WFnLDUBv_qV0pWtPF79wu3d0aYeZAvdfdKhUwlk-GkVnvDxSeKRVska-ZGUl2S-DrVKUZk0rs8R8l8tc9dq6WWo8a-0ru1v8d2ijl7CeCSxbunL6tkXKFtGV6BeVVN-WWtjQrz8SCBxAvA");'>
+</div>
+<div class="absolute top-4 left-4 z-20">
+<span class="px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-bold uppercase tracking-wider backdrop-blur-md">Lite</span>
+</div>
+</div>
+<!-- Content Area -->
+<div class="flex flex-col flex-1 p-6 pt-2 gap-5">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-2xl font-bold text-white mb-1">Lite Ghost</h3>
+<p class="text-white/50 text-xs">v2.4.0 • 1.2 GB</p>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">bolt</span>
+<span class="text-lg font-bold">75</span>
+</div>
+<span class="text-[10px] text-white/40 uppercase tracking-wide">Logic Score</span>
+</div>
+</div>
+<!-- Stats -->
+<div class="space-y-3 bg-white/5 rounded-xl p-4 border border-white/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white/60 text-lg">memory</span>
+<div class="flex-1">
+<div class="flex justify-between text-xs mb-1">
+<span class="text-white/80">RAM Impact</span>
+<span class="text-primary font-medium">Low</span>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[20%] shadow-[0_0_10px_rgba(19,236,200,0.5)]"></div>
+</div>
+</div>
+</div>
+<p class="text-xs text-white/70 leading-relaxed border-t border-white/5 pt-3 mt-1">
+                                Instant responses. Heavily optimized for battery life and older devices.
+                            </p>
+</div>
+<!-- Action -->
+<button class="mt-auto w-full py-3.5 rounded-xl bg-gradient-gold-teal text-background-dark font-bold text-sm tracking-wide shadow-[0_4px_20px_rgba(19,236,200,0.2)] hover:shadow-[0_4px_25px_rgba(19,236,200,0.4)] transition-shadow active:translate-y-0.5">
+                            Download Lite
+                        </button>
+</div>
+</div>
+<!-- Card 2: Power Ghost -->
+<div class="snap-center shrink-0 w-[85%] max-w-[320px] flex flex-col rounded-3xl overflow-hidden border border-primary/30 bg-glass-card shadow-[0_0_30px_rgba(19,236,200,0.1)] backdrop-blur-xl relative transition-transform active:scale-[0.98]">
+<div class="absolute inset-0 border-2 border-primary/20 rounded-3xl pointer-events-none z-30"></div>
+<!-- Image Area -->
+<div class="relative h-48 w-full bg-black/20 overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent z-10"></div>
+<div class="w-full h-full bg-cover bg-center opacity-90 mix-blend-overlay group-hover:scale-110 transition-transform duration-700" data-alt="Abstract 3D rendering of interconnected nodes representing balance" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA9w9I6KZ33mFHaFJK1Fk3HQpJFJrhdrOl3aRE3AhmslmMBpxhFrA1t8PcGYWjCm54vRXB9wr9WuHLnC4mEiKgdxYdpRh_EEoeGRFyoQwcQviOomiprTROsa94YOCFgsM7sWw1dHxSs0gjf4_TtyRphVYxpSJ62ZPcjwOwVo_-kro2ZatRPJqznKwMdKBMBYz0dryA50xHDVIF1gcLWfUlmv9rADSbhg-KRbUqbD40xJJz1AXIVQRtoDiMjQuv5Dstqm3nU-0s_t2M");'>
+</div>
+<div class="absolute top-4 left-4 z-20">
+<span class="px-3 py-1 rounded-full bg-primary text-background-dark text-xs font-bold uppercase tracking-wider backdrop-blur-md shadow-lg">Recommended</span>
+</div>
+</div>
+<!-- Content Area -->
+<div class="flex flex-col flex-1 p-6 pt-2 gap-5">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-2xl font-bold text-white mb-1">Power Ghost</h3>
+<p class="text-white/50 text-xs">v4.1.2 • 3.8 GB</p>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">psychology</span>
+<span class="text-lg font-bold">88</span>
+</div>
+<span class="text-[10px] text-white/40 uppercase tracking-wide">Logic Score</span>
+</div>
+</div>
+<!-- Stats -->
+<div class="space-y-3 bg-white/5 rounded-xl p-4 border border-white/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white/60 text-lg">memory</span>
+<div class="flex-1">
+<div class="flex justify-between text-xs mb-1">
+<span class="text-white/80">RAM Impact</span>
+<span class="text-yellow-400 font-medium">Medium</span>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-yellow-400 w-[50%] shadow-[0_0_10px_rgba(250,204,21,0.5)]"></div>
+</div>
+</div>
+</div>
+<p class="text-xs text-white/70 leading-relaxed border-t border-white/5 pt-3 mt-1">
+                                The perfect balance of creativity and logic. Ideal for daily assistance.
+                            </p>
+</div>
+<!-- Action -->
+<button class="mt-auto w-full py-3.5 rounded-xl bg-gradient-gold-teal text-background-dark font-bold text-sm tracking-wide shadow-[0_4px_20px_rgba(212,175,55,0.4)] hover:shadow-[0_4px_25px_rgba(212,175,55,0.6)] transition-shadow active:translate-y-0.5 relative overflow-hidden group">
+<span class="relative z-10 flex items-center justify-center gap-2">
+                                Download Power
+                                <span class="material-symbols-outlined text-sm">download</span>
+</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Ultra Ghost -->
+<div class="snap-center shrink-0 w-[85%] max-w-[320px] flex flex-col rounded-3xl overflow-hidden border border-white/10 bg-glass-card shadow-lg backdrop-blur-xl transition-transform active:scale-[0.98]">
+<!-- Image Area -->
+<div class="relative h-48 w-full bg-black/20 overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent z-10"></div>
+<div class="w-full h-full bg-cover bg-center opacity-80 mix-blend-overlay group-hover:scale-110 transition-transform duration-700" data-alt="Complex, deep, dark fluid abstract shapes representing deep reasoning" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCXZhFetgFIGVs4mZlMBwJwePrKAdK31SoCwdJoRZKkgbEHLqwxEumQGSepMJ6xUwzGQK47jL_IU-QxrIcxYjAYSxDF4YLq-ORjrIWh-n1Nz1kUl3Di2qL4IokBpeSBHEub2zV8fdBapa7coazmXko1jEh1vFLYiOkCjolOCfnyOBOy1fT0XAxJEEuOs94Xm79iaoaSCvneku-U7_JlenQrokf6dOleMyVuHpnySNpRrFf7T6-r0Yhdw7_89Ak-DYPt3QrQ3rltoVg");'>
+</div>
+<div class="absolute top-4 left-4 z-20">
+<span class="px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md">Ultra</span>
+</div>
+</div>
+<!-- Content Area -->
+<div class="flex flex-col flex-1 p-6 pt-2 gap-5">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-2xl font-bold text-white mb-1">Ultra Ghost</h3>
+<p class="text-white/50 text-xs">v1.0.5 • 7.5 GB</p>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+<span class="text-lg font-bold">98</span>
+</div>
+<span class="text-[10px] text-white/40 uppercase tracking-wide">Logic Score</span>
+</div>
+</div>
+<!-- Stats -->
+<div class="space-y-3 bg-white/5 rounded-xl p-4 border border-white/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white/60 text-lg">memory</span>
+<div class="flex-1">
+<div class="flex justify-between text-xs mb-1">
+<span class="text-white/80">RAM Impact</span>
+<span class="text-red-400 font-medium">High</span>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-red-500 w-[90%] shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+</div>
+</div>
+</div>
+<p class="text-xs text-white/70 leading-relaxed border-t border-white/5 pt-3 mt-1">
+                                Deep reasoning for complex tasks. Requires significant memory and battery.
+                            </p>
+</div>
+<!-- Action -->
+<button class="mt-auto w-full py-3.5 rounded-xl bg-gradient-gold-teal text-background-dark font-bold text-sm tracking-wide shadow-[0_4px_20px_rgba(19,236,200,0.2)] hover:shadow-[0_4px_25px_rgba(19,236,200,0.4)] transition-shadow active:translate-y-0.5 opacity-90">
+                            Download Ultra
+                        </button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="sticky bottom-0 z-20 w-full border-t border-white/5 bg-background-dark/90 backdrop-blur-xl pb-6 pt-3 px-6">
+<div class="flex justify-between items-end">
+<a class="flex flex-col items-center gap-1 text-white/40 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">home</span>
+<span class="text-[10px] font-medium tracking-wide">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary relative group" href="#">
+<div class="absolute -top-10 w-12 h-12 bg-primary/20 rounded-full blur-xl animate-pulse"></div>
+<span class="material-symbols-outlined text-2xl fill-current group-hover:scale-110 transition-transform z-10">storefront</span>
+<span class="text-[10px] font-medium tracking-wide z-10">Sanctuary</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-white/40 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">smart_toy</span>
+<span class="text-[10px] font-medium tracking-wide">My Ghosts</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-white/40 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">settings</span>
+<span class="text-[10px] font-medium tracking-wide">Settings</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

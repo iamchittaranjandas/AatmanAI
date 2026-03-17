@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             xmlns:models="clr-namespace:AatmanAI.Data.Models"
+             x:Class="AatmanAI.Views.VaultPage"
+             x:DataType="vm:VaultViewModel"
+             BackgroundColor="#0A0E14"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Title="Aatman Vault">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- ==================== HEADER ==================== -->
+        <Grid Grid.Row="0" Padding="20,16" ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="12">
+            <Border StrokeShape="RoundRectangle 10"
+                    BackgroundColor="#0D2E24"
+                    StrokeThickness="0"
+                    WidthRequest="40" HeightRequest="40">
+                <Label Text="&#x25A8;" FontSize="22"
+                       TextColor="#00D9A5"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+            <Label Grid.Column="1" Text="Aatman Vault"
+                   FontSize="20" FontAttributes="Bold"
+                   TextColor="White" VerticalOptions="Center"/>
+            <Border Grid.Column="3" StrokeShape="RoundRectangle 20"
+                    BackgroundColor="#1A2530"
+                    Padding="12,6"
+                    StrokeThickness="0">
+                <HorizontalStackLayout Spacing="6">
+                    <Label Text="&#x1F512;&#xFE0E;" FontSize="12"
+                           TextColor="#00D9A5" VerticalOptions="Center"/>
+                    <Label Text="OFFLINE" FontSize="11" FontAttributes="Bold"
+                           TextColor="#00D9A5"
+                           CharacterSpacing="0.5" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </Border>
+        </Grid>
+
+        <!-- ==================== SCROLLABLE CONTENT ==================== -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,0,20,20">
+
+                <!-- ==================== CAPACITY CIRCLE ==================== -->
+                <VerticalStackLayout Spacing="12" HorizontalOptions="Center" Margin="0,20,0,0">
+                    <Grid WidthRequest="180" HeightRequest="180" HorizontalOptions="Center">
+                        <Border StrokeShape="RoundRectangle 90"
+                                BackgroundColor="Transparent"
+                                Stroke="#1A2530"
+                                StrokeThickness="12"
+                                WidthRequest="180" HeightRequest="180"/>
+                        <Border StrokeShape="RoundRectangle 90"
+                                BackgroundColor="Transparent"
+                                Stroke="#00D9A5"
+                                StrokeThickness="12"
+                                WidthRequest="180" HeightRequest="180"/>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="4">
+                            <Label Text="CAPACITY" FontSize="11"
+                                   TextColor="#6B7280"
+                                   HorizontalOptions="Center" CharacterSpacing="1"/>
+                            <Label Text="{Binding CapacityPercent, StringFormat='{0}%'}"
+                                   FontSize="42" FontAttributes="Bold"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="{Binding UsedStorage, StringFormat='{0} Used'}"
+                                   FontSize="14" TextColor="#00D9A5"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                    <Label Text="{Binding TotalStorage, StringFormat='Total: {0} Local Storage'}"
+                           FontSize="13" TextColor="#6B7280"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <!-- ==================== UPLOAD SECTION ==================== -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="Transparent"
+                        Stroke="#1A5C4A"
+                        StrokeThickness="1.5"
+                        StrokeDashArray="8,4"
+                        Padding="24"
+                        Margin="0,24,0,0">
+                    <VerticalStackLayout Spacing="0" HorizontalOptions="Center">
+                        <Border StrokeShape="RoundRectangle 28"
+                                BackgroundColor="#0D2E24"
+                                WidthRequest="56" HeightRequest="56"
+                                StrokeThickness="0"
+                                HorizontalOptions="Center">
+                            <Label Text="&#x2191;" FontSize="28"
+                                   TextColor="#00D9A5"
+                                   HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Border>
+                        <Label Text="Add Knowledge Source" FontSize="18" FontAttributes="Bold"
+                               TextColor="White" HorizontalOptions="Center"
+                               Margin="0,16,0,0"/>
+                        <Label Text="Drop PDF/TXT or Tap to Upload." FontSize="14"
+                               TextColor="#6B7280" HorizontalOptions="Center"
+                               Margin="0,8,0,0"/>
+                        <Label Text="100% Local Processing." FontSize="14"
+                               TextColor="#00D9A5" HorizontalOptions="Center"
+                               Margin="0,4,0,0"/>
+                        <Button Text="+ Browse Files"
+                                Command="{Binding BrowseFilesCommand}"
+                                BackgroundColor="#00D9A5"
+                                TextColor="#000000"
+                                CornerRadius="25"
+                                FontAttributes="Bold" FontSize="14"
+                                HeightRequest="44"
+                                Padding="24,0"
+                                HorizontalOptions="Center"
+                                Margin="0,20,0,0"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ==================== RAG INDEX SECTION ==================== -->
+                <Grid ColumnDefinitions="*,Auto,Auto" Margin="0,24,0,12">
+                    <VerticalStackLayout>
+                        <Label Text="RAG Index" FontSize="18" FontAttributes="Bold"
+                               TextColor="White"/>
+                        <Label FontSize="12" TextColor="#6B7280">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding TotalDocuments}"/>
+                                    <Span Text=" docs &#x2022; "/>
+                                    <Span Text="{Binding TotalChunks}"/>
+                                    <Span Text=" chunks"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Text="&#x2630;" FontSize="22"
+                           TextColor="#6B7280" Margin="0,0,16,0"
+                           VerticalOptions="Center"/>
+                    <Label Grid.Column="2" Text="&#x2315;" FontSize="22"
+                           TextColor="#6B7280"
+                           VerticalOptions="Center"/>
+                </Grid>
+
+                <!-- ==================== DOCUMENT LIST ==================== -->
+                <CollectionView ItemsSource="{Binding Documents}"
+                                IsVisible="{Binding HasDocuments}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:VaultDocument">
+                            <SwipeView Margin="0,0,0,12">
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem Text="Delete"
+                                                   BackgroundColor="#7F1D1D"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type vm:VaultViewModel}}, Path=DeleteDocumentCommand}"
+                                                   CommandParameter="{Binding .}"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+
+                                <Border StrokeShape="RoundRectangle 14"
+                                        BackgroundColor="#12181F"
+                                        Stroke="#374151"
+                                        StrokeThickness="0.5"
+                                        Padding="16">
+                                    <Grid ColumnDefinitions="44,*" ColumnSpacing="14">
+
+                                        <!-- File icon - red for PDF, green for others -->
+                                        <Border StrokeShape="RoundRectangle 10"
+                                                StrokeThickness="0"
+                                                WidthRequest="44" HeightRequest="44">
+                                            <Border.Triggers>
+                                                <DataTrigger TargetType="Border"
+                                                             Binding="{Binding FileType}"
+                                                             Value="pdf">
+                                                    <Setter Property="BackgroundColor" Value="#2D1A1A"/>
+                                                </DataTrigger>
+                                            </Border.Triggers>
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="BackgroundColor" Value="#0D2E24"/>
+                                                </Style>
+                                            </Border.Style>
+                                            <Label FontSize="20"
+                                                   HorizontalOptions="Center" VerticalOptions="Center">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                                 Binding="{Binding FileType}"
+                                                                 Value="pdf">
+                                                        <Setter Property="Text" Value="&#x2261;"/>
+                                                        <Setter Property="TextColor" Value="#FF6B6B"/>
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Setter Property="Text" Value="&#x2263;"/>
+                                                        <Setter Property="TextColor" Value="#00D9A5"/>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Border>
+
+                                        <!-- File info -->
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="6">
+                                            <!-- Name + size row -->
+                                            <Grid ColumnDefinitions="*,Auto">
+                                                <Label Text="{Binding Name}" FontSize="15"
+                                                       TextColor="White" FontAttributes="Bold"
+                                                       LineBreakMode="TailTruncation"/>
+                                                <Label Grid.Column="1" FontSize="12"
+                                                       TextColor="#6B7280"
+                                                       Text="{Binding SizeBytes, StringFormat='{0}'}"/>
+                                            </Grid>
+
+                                            <!-- Processed status: green dot + "100% Embedded" -->
+                                            <HorizontalStackLayout Spacing="6"
+                                                                   IsVisible="{Binding IsProcessed}">
+                                                <BoxView WidthRequest="6" HeightRequest="6"
+                                                         Color="#00D9A5" CornerRadius="3"
+                                                         VerticalOptions="Center"/>
+                                                <Label Text="100% Embedded" FontSize="12"
+                                                       TextColor="#00D9A5"/>
+                                            </HorizontalStackLayout>
+
+                                            <!-- Processing status: yellow dot + progress -->
+                                            <VerticalStackLayout Spacing="6">
+                                                <VerticalStackLayout.Triggers>
+                                                    <DataTrigger TargetType="VerticalStackLayout"
+                                                                 Binding="{Binding IsProcessed}"
+                                                                 Value="True">
+                                                        <Setter Property="IsVisible" Value="False"/>
+                                                    </DataTrigger>
+                                                </VerticalStackLayout.Triggers>
+                                                <HorizontalStackLayout Spacing="6">
+                                                    <BoxView WidthRequest="6" HeightRequest="6"
+                                                             Color="#FFD700" CornerRadius="3"
+                                                             VerticalOptions="Center"/>
+                                                    <Label Text="Processing vectors..." FontSize="12"
+                                                           TextColor="#FFD700"/>
+                                                </HorizontalStackLayout>
+                                                <ProgressBar Progress="{Binding Source={RelativeSource AncestorType={x:Type vm:VaultViewModel}}, Path=ProcessingProgress}"
+                                                             ProgressColor="#FFD700"
+                                                             BackgroundColor="#374151"
+                                                             HeightRequest="3"/>
+                                            </VerticalStackLayout>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- ==================== EMPTY DOCUMENTS STATE ==================== -->
+                <VerticalStackLayout Spacing="0" HorizontalOptions="Center"
+                                     Margin="0,20,0,20">
+                    <VerticalStackLayout.Triggers>
+                        <DataTrigger TargetType="VerticalStackLayout"
+                                     Binding="{Binding HasDocuments}"
+                                     Value="True">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                    </VerticalStackLayout.Triggers>
+                    <Label Text="&#x2750;" FontSize="48"
+                           TextColor="#2A3540"
+                           HorizontalOptions="Center"/>
+                    <Label Text="No documents yet" FontSize="16"
+                           TextColor="#6B7280" HorizontalOptions="Center"
+                           Margin="0,16,0,0"/>
+                    <Label Text="Add PDF, TXT, or Markdown files to enable&#x0a;AI-powered document search"
+                           FontSize="13" TextColor="#4B5563"
+                           HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                           Margin="0,8,0,0"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

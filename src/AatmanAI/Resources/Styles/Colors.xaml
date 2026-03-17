@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- AatmanAI 360 - Sacred Tech Dark Theme -->
+    <!-- Deep Indigo / Obsidian backgrounds -->
+    <Color x:Key="BackgroundDark">#0B0C15</Color>
+    <Color x:Key="SurfaceDark">#151621</Color>
+    <Color x:Key="CardDark">#1E2030</Color>
+    <Color x:Key="SurfaceLighter">#252840</Color>
+
+    <!-- Primary Teal -->
+    <Color x:Key="AccentGreen">#13ECC8</Color>
+    <Color x:Key="AccentGreenDark">#0EA68D</Color>
+    <Color x:Key="AccentGreenDim">#1A3D35</Color>
+    <Color x:Key="AccentGreenBg">#0D2E28</Color>
+
+    <!-- Gold Accent -->
+    <Color x:Key="AccentGold">#D4AF37</Color>
+    <Color x:Key="AccentYellow">#F4C025</Color>
+    <Color x:Key="AccentGoldDim">#3D3520</Color>
+
+    <!-- Secondary -->
+    <Color x:Key="AccentPurple">#6366F1</Color>
+    <Color x:Key="AccentPurpleDim">#2D2050</Color>
+
+    <!-- Danger / Error -->
+    <Color x:Key="ErrorRed">#F43F5E</Color>
+    <Color x:Key="ErrorRedDim">#3D1520</Color>
+
+    <!-- Text Hierarchy -->
+    <Color x:Key="TextPrimary">#FFFFFF</Color>
+    <Color x:Key="TextSecondary">#9CA3AF</Color>
+    <Color x:Key="TextTertiary">#6B7280</Color>
+    <Color x:Key="TextDim">#4B5563</Color>
+
+    <!-- Borders -->
+    <Color x:Key="BorderDark">#2D3045</Color>
+    <Color x:Key="BorderSubtle">#1F2233</Color>
+
+    <!-- Chat Bubbles -->
+    <Color x:Key="UserBubble">#13ECC8</Color>
+    <Color x:Key="UserBubbleText">#0B0C15</Color>
+    <Color x:Key="AssistantBubble">#1A1A2E</Color>
+
+    <!-- Status -->
+    <Color x:Key="StatusOnline">#13ECC8</Color>
+    <Color x:Key="StatusOffline">#F43F5E</Color>
+    <Color x:Key="StatusWarning">#F4C025</Color>
+
+    <!-- Standard MAUI -->
+    <Color x:Key="Primary">#13ECC8</Color>
+    <Color x:Key="PrimaryDark">#0EA68D</Color>
+    <Color x:Key="Secondary">#6366F1</Color>
+    <Color x:Key="Tertiary">#D4AF37</Color>
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Black">#000000</Color>
+    <Color x:Key="Gray100">#E1E1E1</Color>
+    <Color x:Key="Gray200">#C8C8C8</Color>
+    <Color x:Key="Gray300">#ACACAC</Color>
+    <Color x:Key="Gray400">#919191</Color>
+    <Color x:Key="Gray500">#6E6E6E</Color>
+    <Color x:Key="Gray600">#404040</Color>
+    <Color x:Key="Gray900">#212121</Color>
+    <Color x:Key="Gray950">#141414</Color>
+
+    <!-- Compatibility keys used in Styles.xaml -->
+    <Color x:Key="PrimaryDarkText">#FFFFFF</Color>
+    <Color x:Key="SecondaryDarkText">#9CA3AF</Color>
+    <Color x:Key="MidnightBlue">#0B0C15</Color>
+    <Color x:Key="OffBlack">#0B0C15</Color>
+    <Color x:Key="Magenta">#13ECC8</Color>
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
+    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
+    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+</ResourceDictionary>

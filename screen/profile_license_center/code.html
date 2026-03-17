@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile &amp; License Center - Aatman AI 360</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#ecb613",
+              "background-light": "#f8f8f6",
+              "background-dark": "#0F172A", 
+              "surface-dark": "#1E293B",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"],
+              "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+            backgroundImage: {
+                "indigo-gradient": "linear-gradient(to bottom, #0F172A, #1e1b4b, #0f1020)",
+                "gold-sheen": "linear-gradient(135deg, #ecb613 0%, #fcd34d 50%, #d97706 100%)"
+            }
+          },
+        },
+      }
+    </script>
+<!-- Google Fonts & Material Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Custom scrollbar for glassmorphism panels if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark text-white font-display antialiased selection:bg-primary selection:text-black">
+<div class="relative flex h-full min-h-screen w-full flex-col bg-indigo-gradient overflow-x-hidden">
+<!-- Header -->
+<header class="flex items-center justify-between p-4 pb-2 z-10">
+<button class="text-white/80 hover:text-primary transition-colors flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-white/5">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<h2 class="text-white text-lg font-semibold tracking-wide flex-1 text-center opacity-90">Profile &amp; Licenses</h2>
+<div class="flex w-12 items-center justify-end">
+<button class="flex items-center justify-center text-white/80 hover:text-primary transition-colors size-12 rounded-full hover:bg-white/5">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Scrollable Area -->
+<main class="flex-1 flex flex-col items-center w-full max-w-md mx-auto px-5 pt-4 pb-32">
+<!-- Profile Status Section -->
+<div class="flex flex-col items-center gap-5 mb-8 w-full">
+<!-- Avatar with Glow -->
+<div class="relative group cursor-pointer">
+<div class="absolute -inset-1 rounded-full bg-primary/30 blur-xl opacity-50 group-hover:opacity-75 transition duration-500"></div>
+<div class="relative h-28 w-28 rounded-full p-[2px] bg-gradient-to-tr from-primary via-yellow-200 to-primary/40">
+<div class="h-full w-full rounded-full bg-cover bg-center overflow-hidden border-4 border-[#0F172A]" data-alt="Portrait of a person with sacred geometry overlay" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAdZLNabLBSvfGCvqTQ2PDY1UNGpPqMlJntekI-jl11sJMI_6RlcBtn7og0tStALkQVq880XcDWXddgI8gxAdnVe-fRkq_eqYFWmvUiB0vVi5CecpMplAJfPkED35LoduCgrAHasHDkFmFayQ5JCpDpgbXFnJeqRRXD5xHJb1IvaYBq-BPOdfTA_6wa2cYJNAMKKmrCJooq2qZ3V-xWbsb31hzBtdlUK6l4sRSMFtGMJqB-tVpTSRGOQmHJLQxEhstoE5r1nGfzDjs');">
+</div>
+</div>
+<div class="absolute bottom-0 right-0 bg-primary text-[#0F172A] rounded-full p-1.5 border-4 border-[#0F172A] flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] font-bold">verified</span>
+</div>
+</div>
+<!-- Text Info -->
+<div class="flex flex-col items-center justify-center gap-1">
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">crown</span>
+<p class="text-primary text-sm font-bold tracking-wide uppercase">Master Key Member</p>
+</div>
+<p class="text-slate-400 text-sm font-medium mt-1">Premium Status Active</p>
+</div>
+</div>
+<!-- Identity Block -->
+<div class="w-full glass-panel rounded-2xl p-5 mb-8 relative overflow-hidden group">
+<!-- Decorative background elements -->
+<div class="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl"></div>
+<div class="flex items-center justify-between mb-2">
+<p class="text-slate-400 text-xs font-medium uppercase tracking-wider">Local Device Identity</p>
+<div class="flex items-center gap-1 text-emerald-400 text-[10px] font-bold uppercase tracking-wide bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+<span class="material-symbols-outlined text-[12px]">shield_lock</span>
+<span>Encrypted &amp; Offline</span>
+</div>
+</div>
+<div class="flex items-center justify-between gap-4 mt-1">
+<code class="font-mono text-xl text-white tracking-widest truncate">A7X-99-Q2</code>
+<button class="flex items-center justify-center h-10 w-10 shrink-0 rounded-lg bg-white/5 hover:bg-primary hover:text-[#0F172A] text-white transition-all duration-300 active:scale-95 group-hover:bg-white/10">
+<span class="material-symbols-outlined text-[20px]">content_copy</span>
+</button>
+</div>
+<div class="mt-4 pt-4 border-t border-white/5 flex gap-6">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase font-bold">Model Version</span>
+<span class="text-sm text-slate-200">Titan v4.2</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase font-bold">Last Sync</span>
+<span class="text-sm text-slate-200">Today, 08:42 AM</span>
+</div>
+</div>
+</div>
+<!-- History Section -->
+<div class="w-full flex flex-col gap-4">
+<h3 class="text-white text-lg font-bold leading-tight px-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">history</span>
+                    License History
+                </h3>
+<div class="flex flex-col gap-3">
+<!-- Card 1 -->
+<div class="glass-card w-full p-4 rounded-xl flex items-center justify-between group cursor-pointer transition-transform hover:scale-[1.01]">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-lg bg-indigo-500/20 flex items-center justify-center border border-indigo-400/20 text-indigo-300">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-semibold text-sm">Offline NLP Core</span>
+<span class="text-slate-400 text-xs">Unlocked • 12 Oct 2023</span>
+</div>
+</div>
+<div class="text-emerald-400">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-card w-full p-4 rounded-xl flex items-center justify-between group cursor-pointer transition-transform hover:scale-[1.01]">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-lg bg-pink-500/20 flex items-center justify-center border border-pink-400/20 text-pink-300">
+<span class="material-symbols-outlined text-[20px]">diversity_3</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-semibold text-sm">Personality Matrix V2</span>
+<span class="text-slate-400 text-xs">Unlocked • 05 Nov 2023</span>
+</div>
+</div>
+<div class="text-emerald-400">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-card w-full p-4 rounded-xl flex items-center justify-between group cursor-pointer transition-transform hover:scale-[1.01]">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-lg bg-amber-500/20 flex items-center justify-center border border-amber-400/20 text-amber-300">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-semibold text-sm">Advanced Analytics Pack</span>
+<span class="text-slate-400 text-xs">Unlocked • 20 Dec 2023</span>
+</div>
+</div>
+<div class="text-emerald-400">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Footer -->
+<div class="fixed bottom-0 w-full max-w-md left-1/2 -translate-x-1/2 p-5 bg-gradient-to-t from-[#0F172A] via-[#0F172A] to-transparent z-20">
+<button class="w-full relative overflow-hidden rounded-xl h-14 bg-gold-sheen text-[#0f1020] gap-2 text-base font-bold tracking-wide shadow-lg shadow-primary/20 flex items-center justify-center hover:brightness-110 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">restore</span>
+<span>Restore Local Licenses</span>
+<!-- Sheen effect -->
+<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
+</button>
+</div>
+</div>
+</body></html>

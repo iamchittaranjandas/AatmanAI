@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             xmlns:models="clr-namespace:AatmanAI.Data.Models"
+             x:Class="AatmanAI.Views.DownloadManagerPage"
+             x:DataType="vm:DownloadManagerViewModel"
+             BackgroundColor="#0A0E14"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Title="Download Manager">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- ═══ HEADER ═══ -->
+        <Grid ColumnDefinitions="Auto,*,Auto" Padding="16,12" ColumnSpacing="0">
+            <Border StrokeShape="RoundRectangle 10"
+                    BackgroundColor="Transparent"
+                    WidthRequest="40" HeightRequest="40"
+                    StrokeThickness="0">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped"/>
+                </Border.GestureRecognizers>
+                <Label Text="&#x2190;" FontSize="24" TextColor="White"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+            <Label Grid.Column="1" Text="Download Manager"
+                   FontSize="20" FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Border Grid.Column="2" StrokeShape="RoundRectangle 20"
+                    BackgroundColor="#FFD54F"
+                    WidthRequest="40" HeightRequest="40"
+                    StrokeThickness="0">
+                <Label Text="&#x2726;" FontSize="22" TextColor="#0A0E14"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+        </Grid>
+
+        <!-- ═══ SCROLLABLE CONTENT ═══ -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="0" Padding="20,8,20,24">
+
+                <!-- Secure Connection Badge -->
+                <HorizontalStackLayout Spacing="8" HorizontalOptions="Center" Margin="0,0,0,24">
+                    <Border StrokeShape="RoundRectangle 4"
+                            BackgroundColor="#00D9A5"
+                            WidthRequest="8" HeightRequest="8"
+                            StrokeThickness="0" VerticalOptions="Center"/>
+                    <Label Text="SECURE CONNECTION ESTABLISHED" FontSize="12"
+                           TextColor="#6B7280"
+                           CharacterSpacing="1.2"/>
+                </HorizontalStackLayout>
+
+                <!-- ═══ STORAGE CARDS ═══ -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="16" Margin="0,0,0,32">
+                    <!-- Available Storage Card -->
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#1A2530"
+                            Stroke="#2A3540"
+                            StrokeThickness="1"
+                            Padding="20">
+                        <VerticalStackLayout Spacing="12">
+                            <HorizontalStackLayout Spacing="8">
+                                <Label Text="&#x2601;" FontSize="18" TextColor="#6B7280"/>
+                                <Label Text="AVAILABLE" FontSize="11"
+                                       TextColor="#6B7280" CharacterSpacing="1"
+                                       FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding AvailableSpace}" FontSize="28"
+                                   FontAttributes="Bold" TextColor="White"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    <!-- Required Storage Card -->
+                    <Border Grid.Column="1" StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#1A2530"
+                            Stroke="#2A3540"
+                            StrokeThickness="1"
+                            Padding="20">
+                        <VerticalStackLayout Spacing="12">
+                            <HorizontalStackLayout Spacing="8">
+                                <Label Text="&#x2193;" FontSize="18" TextColor="#6B7280"/>
+                                <Label Text="REQUIRED" FontSize="11"
+                                       TextColor="#6B7280" CharacterSpacing="1"
+                                       FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding RequiredSpace}" FontSize="28"
+                                   FontAttributes="Bold" TextColor="#FFD54F"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <!-- ═══ ACTIVE DOWNLOADS SECTION ═══ -->
+                <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,16">
+                    <Label Text="Active Downloads" FontSize="18"
+                           FontAttributes="Bold" TextColor="White"
+                           VerticalOptions="Center"/>
+                    <Border Grid.Column="1" StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#1A2530"
+                            Stroke="#2A3540"
+                            StrokeThickness="1"
+                            Padding="12,6">
+                        <Label Text="{Binding PendingCount, StringFormat='{0} Pending'}"
+                               FontSize="12"
+                               TextColor="#00D9A5"/>
+                    </Border>
+                </Grid>
+
+                <!-- Active Downloads List -->
+                <CollectionView ItemsSource="{Binding ActiveDownloads}"
+                                IsVisible="{Binding HasActiveDownloads}"
+                                Margin="0,0,0,16">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:DownloadTask">
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#1A2530"
+                                    Stroke="#2A3540"
+                                    StrokeThickness="1"
+                                    Padding="20"
+                                    Margin="0,0,0,16">
+                                <VerticalStackLayout Spacing="0">
+                                    <!-- Top row: icon, name, pause button -->
+                                    <Grid ColumnDefinitions="48,*,36" ColumnSpacing="16">
+                                        <Border StrokeShape="RoundRectangle 12"
+                                                BackgroundColor="#1A3A30"
+                                                WidthRequest="48" HeightRequest="48"
+                                                StrokeThickness="0">
+                                            <Label Text="&#x2193;" FontSize="24"
+                                                   TextColor="#FFD54F"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"/>
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             VerticalOptions="Center"
+                                                             Spacing="4">
+                                            <Label Text="{Binding ModelName}"
+                                                   FontSize="16" FontAttributes="Bold"
+                                                   TextColor="White"
+                                                   LineBreakMode="TailTruncation"/>
+                                            <Label FontSize="13" TextColor="#6B7280">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding DownloadedBytes, StringFormat='{0:N0} B'}"/>
+                                                        <Span Text=" / "/>
+                                                        <Span Text="{Binding TotalBytes, StringFormat='{0:N0} B'}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </VerticalStackLayout>
+                                        <Border Grid.Column="2"
+                                                StrokeShape="RoundRectangle 18"
+                                                BackgroundColor="#FFD54F"
+                                                WidthRequest="36" HeightRequest="36"
+                                                StrokeThickness="0">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DownloadManagerViewModel}}, Path=TogglePauseCommand}"
+                                                    CommandParameter="{Binding .}"/>
+                                            </Border.GestureRecognizers>
+                                            <Label Text="&#x2016;" FontSize="16"
+                                                   TextColor="#0A0E14"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"/>
+                                        </Border>
+                                    </Grid>
+
+                                    <!-- Status + percentage row -->
+                                    <Grid ColumnDefinitions="*,Auto" Margin="0,20,0,0">
+                                        <Label Text="{Binding State}"
+                                               FontSize="13" TextColor="#FFD54F"
+                                               FontAttributes="Bold"/>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding ProgressPercent}"
+                                               FontSize="14" FontAttributes="Bold"
+                                               TextColor="White"/>
+                                    </Grid>
+
+                                    <!-- Progress bar -->
+                                    <ProgressBar Progress="{Binding Progress}"
+                                                 ProgressColor="#FFD54F"
+                                                 BackgroundColor="#374151"
+                                                 HeightRequest="6"
+                                                 Margin="0,12,0,0"/>
+
+                                    <!-- Bottom row: size / ETA -->
+                                    <Grid ColumnDefinitions="*,Auto" Margin="0,12,0,0">
+                                        <Label FontSize="12" TextColor="#6B7280">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding DownloadedBytes, StringFormat='{0:N0} B'}"/>
+                                                    <Span Text=" / "/>
+                                                    <Span Text="{Binding TotalBytes, StringFormat='{0:N0} B'}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Eta, StringFormat='Est: {0}'}"
+                                               FontSize="12" TextColor="#6B7280"/>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Empty Downloads State -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#1A2530"
+                        Stroke="#1E2A35"
+                        StrokeThickness="1"
+                        Padding="32"
+                        Margin="0,0,0,32">
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border"
+                                     Binding="{Binding HasActiveDownloads}"
+                                     Value="True">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                        <Label Text="&#x2601;" FontSize="48" TextColor="#4B5563"
+                               HorizontalOptions="Center"/>
+                        <Label Text="No active downloads" FontSize="16"
+                               TextColor="#6B7280" HorizontalOptions="Center"/>
+                        <Label Text="Visit the Sanctuary to download models" FontSize="13"
+                               TextColor="#4B5563" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ═══ INSTALLED MODELS SECTION ═══ -->
+                <Label Text="Installed Models" FontSize="18"
+                       FontAttributes="Bold" TextColor="White"
+                       Margin="0,0,0,16"/>
+
+                <ActivityIndicator IsRunning="{Binding IsLoadingModels}"
+                                   IsVisible="{Binding IsLoadingModels}"
+                                   Color="#00D9A5"
+                                   HeightRequest="48"
+                                   Margin="0,24"/>
+
+                <CollectionView ItemsSource="{Binding InstalledModels}"
+                                IsVisible="{Binding HasInstalledModels}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:DownloadedModel">
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#1A2530"
+                                    Stroke="#2A3540"
+                                    StrokeThickness="1"
+                                    Padding="16"
+                                    Margin="0,0,0,12">
+                                <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="16">
+                                    <Border StrokeShape="RoundRectangle 12"
+                                            BackgroundColor="#374151"
+                                            WidthRequest="44" HeightRequest="44"
+                                            StrokeThickness="0">
+                                        <Label Text="&#x2B23;" FontSize="22"
+                                               TextColor="#6B7280"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         VerticalOptions="Center"
+                                                         Spacing="4">
+                                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="15" FontAttributes="Bold"
+                                                   TextColor="White"
+                                                   LineBreakMode="TailTruncation"
+                                                   VerticalOptions="Center"/>
+                                            <Border Grid.Column="1"
+                                                    StrokeShape="RoundRectangle 4"
+                                                    BackgroundColor="#1A3A30"
+                                                    StrokeThickness="0"
+                                                    Padding="8,2"
+                                                    IsVisible="{Binding IsActive}">
+                                                <Label Text="ACTIVE" FontSize="10"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#00D9A5"/>
+                                            </Border>
+                                        </Grid>
+                                        <Label FontSize="13" TextColor="#6B7280">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Parameters}"/>
+                                                    <Span Text=" &#x2022; "/>
+                                                    <Span Text="{Binding FileSizeDisplay}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                    <Border Grid.Column="2"
+                                            StrokeShape="RoundRectangle 8"
+                                            BackgroundColor="Transparent"
+                                            StrokeThickness="0"
+                                            WidthRequest="36" HeightRequest="36">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DownloadManagerViewModel}}, Path=DeleteModelCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        <Label Text="&#x2715;" FontSize="18"
+                                               TextColor="#6B7280"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Empty Models State -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#1A2530"
+                        Stroke="#1E2A35"
+                        StrokeThickness="1"
+                        Padding="24">
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border"
+                                     Binding="{Binding HasInstalledModels}"
+                                     Value="True">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                        <Label Text="&#x2B23;" FontSize="40" TextColor="#4B5563"
+                               HorizontalOptions="Center"/>
+                        <Label Text="No models installed" FontSize="14"
+                               TextColor="#6B7280" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- ═══ CHECK FOR UPDATES BUTTON ═══ -->
+        <Button Grid.Row="2"
+                Text="&#x21BB;  Check for Updates"
+                Command="{Binding CheckForUpdatesCommand}"
+                BackgroundColor="Transparent"
+                TextColor="#FFD54F"
+                BorderColor="#FFD54F"
+                BorderWidth="2" CornerRadius="28"
+                FontAttributes="Bold" FontSize="16" HeightRequest="56"
+                Margin="20,0,20,20"/>
+    </Grid>
+</ContentPage>

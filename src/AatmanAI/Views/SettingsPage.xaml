@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             x:Class="AatmanAI.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel"
+             BackgroundColor="#0A0E14"
+             Shell.NavBarIsVisible="False"
+             Title="Settings">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Padding="16,12" ColumnDefinitions="40,*,40">
+            <Grid Grid.Column="0" WidthRequest="40" HeightRequest="40"
+                  HorizontalOptions="Start" VerticalOptions="Center">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped"/>
+                </Grid.GestureRecognizers>
+                <Label Text="&#x2039;" FontSize="28"
+                       TextColor="White"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"/>
+            </Grid>
+            <Label Grid.Column="1" Text="Settings"
+                   FontSize="18" FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"
+                   VerticalOptions="Center"/>
+        </Grid>
+
+        <!-- Scrollable Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,0,20,40" Spacing="0">
+
+                <!-- ════════════════════════════════════════ -->
+                <!-- Status Badge -->
+                <!-- ════════════════════════════════════════ -->
+                <Border StrokeShape="RoundRectangle 22"
+                        BackgroundColor="#0D2E28"
+                        Stroke="#00D9A5"
+                        StrokeThickness="1"
+                        Padding="16,10"
+                        Margin="0,20,0,0"
+                        HorizontalOptions="Center">
+                    <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Ellipse WidthRequest="8" HeightRequest="8"
+                                 Fill="#00D9A5" VerticalOptions="Center"/>
+                        <Label Text="100% PRIVATE - ON DEVICE"
+                               FontSize="11" FontAttributes="Bold"
+                               TextColor="#00D9A5"
+                               CharacterSpacing="0.8"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- ════════════════════════════════════════ -->
+                <!-- DEVICE Section -->
+                <!-- ════════════════════════════════════════ -->
+                <HorizontalStackLayout Spacing="10" Margin="0,28,0,0">
+                    <Label Text="&#x1F4F1;" FontSize="18" VerticalOptions="Center"/>
+                    <Label Text="Device" FontSize="16" FontAttributes="Bold"
+                           TextColor="White" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#151C22"
+                        Stroke="#2A2A2A"
+                        StrokeThickness="1"
+                        Padding="0"
+                        Margin="0,16,0,0">
+                    <VerticalStackLayout>
+
+                        <!-- RAM -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*">
+                            <Label Text="&#x1F9E0;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="RAM" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="{Binding RamInfo}" FontSize="13"
+                                       TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Storage -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*">
+                            <Label Text="&#x1F4BE;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Storage" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="{Binding StorageInfo}" FontSize="13"
+                                       TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Device Tier -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Label Text="&#x26A1;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Device Tier" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="{Binding DeviceTier}" FontSize="13"
+                                       TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                            <Border Grid.Column="3"
+                                    StrokeShape="RoundRectangle 8"
+                                    BackgroundColor="#1A3D35"
+                                    Stroke="#00D9A5"
+                                    StrokeThickness="1"
+                                    Padding="10,4"
+                                    VerticalOptions="Center">
+                                <Label Text="{Binding DeviceTier}"
+                                       FontSize="11" FontAttributes="Bold"
+                                       TextColor="#00D9A5"
+                                       CharacterSpacing="0.5"/>
+                            </Border>
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ════════════════════════════════════════ -->
+                <!-- INFERENCE Section -->
+                <!-- ════════════════════════════════════════ -->
+                <HorizontalStackLayout Spacing="10" Margin="0,28,0,0">
+                    <Label Text="&#x26A1;" FontSize="18" TextColor="#FFD54F" VerticalOptions="Center"/>
+                    <Label Text="Inference" FontSize="16" FontAttributes="Bold"
+                           TextColor="White" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#151C22"
+                        Stroke="#2A2A2A"
+                        StrokeThickness="1"
+                        Padding="0"
+                        Margin="0,16,0,0">
+                    <VerticalStackLayout>
+
+                        <!-- Power Mode -->
+                        <VerticalStackLayout Padding="20" Spacing="4">
+                            <HorizontalStackLayout Spacing="12">
+                                <Label Text="&#x26A1;" FontSize="18" TextColor="#FFD54F"
+                                       VerticalOptions="Center"/>
+                                <Label Text="Power Mode" FontSize="15"
+                                       TextColor="White" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding PowerModeDisplay}" FontSize="13"
+                                   TextColor="#9E9E9E" Margin="30,0,0,0"/>
+
+                            <!-- Power Mode Selector Bar -->
+                            <Border StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#0A0E14"
+                                    Stroke="Transparent"
+                                    Padding="4"
+                                    Margin="0,12,0,0">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding CyclePowerModeCommand}"/>
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,*,*">
+                                    <Border Grid.Column="1"
+                                            StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="#FFD54F"
+                                            Stroke="Transparent"
+                                            Padding="0,12">
+                                        <Label Text="{Binding PowerModeDisplay}"
+                                               FontSize="12" FontAttributes="Bold"
+                                               TextColor="#0A0E14"
+                                               HorizontalTextAlignment="Center"/>
+                                    </Border>
+                                    <Label Grid.Column="0" Text="Efficient"
+                                           FontSize="12" TextColor="#9E9E9E"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="2" Text="Performance"
+                                           FontSize="12" TextColor="#9E9E9E"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Creativity (Temperature) -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Label Text="&#x1F3B5;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Creativity" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="{Binding Temperature, StringFormat='Temperature: {0:F1}'}"
+                                       FontSize="13" TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3"
+                                   Text="{Binding Temperature, StringFormat='{0:F1}'}"
+                                   FontSize="15" FontAttributes="Bold"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <!-- Temperature Slider -->
+                        <Slider Minimum="0.1" Maximum="2.0" Value="{Binding Temperature}"
+                                MinimumTrackColor="#FFD54F"
+                                MaximumTrackColor="#2A2A2A"
+                                ThumbColor="#FFD54F"
+                                Margin="20,0,20,4"/>
+                        <Grid ColumnDefinitions="*,*" Margin="20,0,20,16">
+                            <Label Text="FOCUSED" FontSize="9" TextColor="#757575"
+                                   CharacterSpacing="1"/>
+                            <Label Grid.Column="1" Text="CREATIVE" FontSize="9"
+                                   TextColor="#757575" CharacterSpacing="1"
+                                   HorizontalTextAlignment="End"/>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Memory (Context Length) -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Label Text="&#x1F9E0;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Memory (Context)" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="{Binding ContextLength, StringFormat='{0} tokens'}"
+                                       FontSize="13" TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3"
+                                   Text="{Binding ContextLength, StringFormat='{0}'}"
+                                   FontSize="15" FontAttributes="Bold"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <!-- Context Slider -->
+                        <Slider Minimum="256" Maximum="4096" Value="{Binding ContextLength}"
+                                MinimumTrackColor="#FFD54F"
+                                MaximumTrackColor="#2A2A2A"
+                                ThumbColor="#FFD54F"
+                                Margin="20,0,20,4"/>
+                        <Grid ColumnDefinitions="*,*" Margin="20,0,20,16">
+                            <Label Text="SHORT" FontSize="9" TextColor="#757575"
+                                   CharacterSpacing="1"/>
+                            <Label Grid.Column="1" Text="DEEP" FontSize="9"
+                                   TextColor="#757575" CharacterSpacing="1"
+                                   HorizontalTextAlignment="End"/>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Advanced AI Settings -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Label Text="&#x1F9E0;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Advanced AI Settings" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="Creativity, memory, and safety controls"
+                                       FontSize="13" TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3" Text="&#x276F;" FontSize="18"
+                                   TextColor="#757575" VerticalOptions="Center"/>
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ════════════════════════════════════════ -->
+                <!-- MODELS & STORAGE Section -->
+                <!-- ════════════════════════════════════════ -->
+                <HorizontalStackLayout Spacing="10" Margin="0,28,0,0">
+                    <Label Text="&#x2728;" FontSize="18" TextColor="#6C5CE7" VerticalOptions="Center"/>
+                    <Label Text="Models &amp; Storage" FontSize="16" FontAttributes="Bold"
+                           TextColor="White" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#151C22"
+                        Stroke="#2A2A2A"
+                        StrokeThickness="1"
+                        Padding="0"
+                        Margin="0,16,0,0">
+                    <VerticalStackLayout>
+
+                        <!-- Active Model / Model Sanctuary -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenMarketplaceCommand}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="&#x2B07;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Model Sanctuary" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="{Binding ActiveModelName}" FontSize="13"
+                                       TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3" Text="&#x276F;" FontSize="18"
+                                   TextColor="#757575" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Storage Manager -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenStorageCommand}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="&#x1F4C1;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Storage Manager" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="Manage downloaded models &amp; cache"
+                                       FontSize="13" TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3" Text="&#x276F;" FontSize="18"
+                                   TextColor="#757575" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Custom Prompts -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenCustomPromptsCommand}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="&#x1F4DD;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Custom Prompts" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="Manage your prompt templates"
+                                       FontSize="13" TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3" Text="&#x276F;" FontSize="18"
+                                   TextColor="#757575" VerticalOptions="Center"/>
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ════════════════════════════════════════ -->
+                <!-- PRIVACY & SECURITY Section -->
+                <!-- ════════════════════════════════════════ -->
+                <HorizontalStackLayout Spacing="10" Margin="0,28,0,0">
+                    <Label Text="&#x1F6E1;" FontSize="18" TextColor="#00D9A5" VerticalOptions="Center"/>
+                    <Label Text="Privacy &amp; Security" FontSize="16" FontAttributes="Bold"
+                           TextColor="White" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#151C22"
+                        Stroke="#2A2A2A"
+                        StrokeThickness="1"
+                        Padding="0"
+                        Margin="0,16,0,0">
+                    <VerticalStackLayout>
+
+                        <!-- Privacy Guard -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Label Text="&#x2705;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Privacy Guard" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="Inference runs in isolated process"
+                                       FontSize="13" TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3" Text="&#x2714;" FontSize="18"
+                                   TextColor="#00D9A5" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Network Audit -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenNetworkAuditCommand}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="&#x1F4F6;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Network Audit" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="View all network activity"
+                                       FontSize="13" TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3" Text="&#x276F;" FontSize="18"
+                                   TextColor="#757575" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Clear All Data -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*">
+                            <Label Text="&#x1F5D1;" FontSize="20"
+                                   TextColor="#FF6B6B" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Clear All Data" FontSize="15"
+                                       TextColor="#FF6B6B"/>
+                                <Label Text="Delete all chats and settings"
+                                       FontSize="13" TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ════════════════════════════════════════ -->
+                <!-- ABOUT Section -->
+                <!-- ════════════════════════════════════════ -->
+                <HorizontalStackLayout Spacing="10" Margin="0,28,0,0">
+                    <Label Text="&#x2139;" FontSize="18" TextColor="White" VerticalOptions="Center"/>
+                    <Label Text="About" FontSize="16" FontAttributes="Bold"
+                           TextColor="White" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#151C22"
+                        Stroke="#2A2A2A"
+                        StrokeThickness="1"
+                        Padding="0"
+                        Margin="0,16,0,0">
+                    <VerticalStackLayout>
+
+                        <!-- Version -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*">
+                            <Label Text="#" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Version" FontSize="15"
+                                       TextColor="White"/>
+                                <Label Text="1.0.0" FontSize="13"
+                                       TextColor="#9E9E9E"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Open Source Licenses -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Label Text="&#x1F4DC;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Open Source Licenses" FontSize="15"
+                                       TextColor="White"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3" Text="&#x276F;" FontSize="18"
+                                   TextColor="#757575" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="#2A2A2A" Margin="56,0,20,0"/>
+
+                        <!-- Privacy Policy -->
+                        <Grid Padding="20,16" ColumnDefinitions="Auto,12,*,Auto">
+                            <Label Text="&#x1F4C4;" FontSize="20"
+                                   TextColor="#FFD54F" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                <Label Text="Privacy Policy" FontSize="15"
+                                       TextColor="White"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="3" Text="&#x276F;" FontSize="18"
+                                   TextColor="#757575" VerticalOptions="Center"/>
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ════════════════════════════════════════ -->
+                <!-- Save Button -->
+                <!-- ════════════════════════════════════════ -->
+                <Border StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#00D9A5"
+                        Stroke="Transparent"
+                        Padding="16,14"
+                        Margin="0,28,0,0"
+                        HorizontalOptions="Fill">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SaveCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="Save Settings" FontSize="15" FontAttributes="Bold"
+                           TextColor="#0A0E14"
+                           HorizontalTextAlignment="Center"/>
+                </Border>
+
+                <!-- ════════════════════════════════════════ -->
+                <!-- Footer -->
+                <!-- ════════════════════════════════════════ -->
+                <VerticalStackLayout Spacing="8" Margin="0,32,0,0" HorizontalOptions="Center">
+                    <Label Text="AATMAN AI V1.0.0"
+                           FontSize="11" FontAttributes="Bold"
+                           TextColor="#757575"
+                           CharacterSpacing="1.5"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Your conversations never leave this device."
+                           FontSize="12"
+                           TextColor="#616161"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

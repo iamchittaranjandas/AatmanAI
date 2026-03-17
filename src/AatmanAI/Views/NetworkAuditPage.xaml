@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             xmlns:models="clr-namespace:AatmanAI.Data.Models"
+             x:Class="AatmanAI.Views.NetworkAuditPage"
+             x:DataType="vm:NetworkAuditViewModel"
+             BackgroundColor="#0A0E14"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Title="Network Audit">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Top Bar: Back + Title + Delete -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" Padding="8,10,8,6">
+            <Border StrokeShape="RoundRectangle 20"
+                    BackgroundColor="Transparent" StrokeThickness="0"
+                    WidthRequest="44" HeightRequest="44"
+                    HorizontalOptions="Start">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped"/>
+                </Border.GestureRecognizers>
+                <Label Text="&#x2190;" FontSize="22" TextColor="#9CA3AF"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+
+            <Label Grid.Column="1" Text="Network Audit"
+                   FontSize="20" FontAttributes="Bold" TextColor="White"
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
+
+            <Border Grid.Column="2" StrokeShape="RoundRectangle 20"
+                    BackgroundColor="Transparent" StrokeThickness="0"
+                    WidthRequest="44" HeightRequest="44">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClearCommand}"/>
+                </Border.GestureRecognizers>
+                <Label Text="&#x1D5EB;" FontSize="18" TextColor="#9CA3AF"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+        </Grid>
+
+        <!-- Scrollable Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="0">
+
+                <!-- ========== Privacy Verification Card ========== -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#0D2E24"
+                        StrokeThickness="0"
+                        Padding="16"
+                        Margin="16,8,16,16">
+                    <VerticalStackLayout Spacing="16">
+
+                        <!-- Icon + Status Text Row -->
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                            <Border StrokeShape="RoundRectangle 24"
+                                    BackgroundColor="#1A4D3D"
+                                    WidthRequest="48" HeightRequest="48"
+                                    StrokeThickness="0">
+                                <Label Text="&#x2714;" FontSize="22" TextColor="#00D9A5"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <Label Text="Privacy Verified"
+                                       FontSize="16" FontAttributes="Bold" TextColor="#00D9A5"/>
+                                <Label Text="All network requests are expected"
+                                       FontSize="13" TextColor="#6B7280"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <!-- Stats Row: Total | Downloads | Manifest | Suspicious -->
+                        <Grid ColumnDefinitions="*,*,*,*">
+                            <!-- Total Requests -->
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="2">
+                                <Label Text="{Binding TotalRequests}"
+                                       FontSize="20" FontAttributes="Bold"
+                                       TextColor="#00D9A5" HorizontalOptions="Center"/>
+                                <Label Text="Total Requests"
+                                       FontSize="10" TextColor="#6B7280"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Model Downloads -->
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
+                                <Label Text="0"
+                                       FontSize="20" FontAttributes="Bold"
+                                       TextColor="#00D9A5" HorizontalOptions="Center"/>
+                                <Label Text="Downloads"
+                                       FontSize="10" TextColor="#6B7280"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Manifest Fetches -->
+                            <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
+                                <Label Text="0"
+                                       FontSize="20" FontAttributes="Bold"
+                                       TextColor="#FFD54F" HorizontalOptions="Center"/>
+                                <Label Text="Manifest"
+                                       FontSize="10" TextColor="#6B7280"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+
+                            <!-- Suspicious -->
+                            <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" Spacing="2">
+                                <Label Text="0"
+                                       FontSize="20" FontAttributes="Bold"
+                                       TextColor="#6B7280" HorizontalOptions="Center"/>
+                                <Label Text="Suspicious"
+                                       FontSize="10" TextColor="#6B7280"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ========== Expected Domains Card ========== -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#1A2530"
+                        StrokeThickness="0"
+                        Padding="16"
+                        Margin="16,0,16,16">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="Expected Domains"
+                               FontSize="16" FontAttributes="Bold" TextColor="White"/>
+
+                        <!-- huggingface.co -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Label Text="&#x2193;" FontSize="20" TextColor="#00D9A5"
+                                   VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                <Label Text="huggingface.co" FontSize="14" TextColor="White"/>
+                                <Label Text="Model downloads" FontSize="12" TextColor="#6B7280"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="&#x2713;" FontSize="16"
+                                   TextColor="#00D9A5" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <!-- cdn-lfs.huggingface.co -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Label Text="&#x2601;" FontSize="20" TextColor="#00D9A5"
+                                   VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                <Label Text="cdn-lfs.huggingface.co" FontSize="14" TextColor="White"/>
+                                <Label Text="Large file storage" FontSize="12" TextColor="#6B7280"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="&#x2713;" FontSize="16"
+                                   TextColor="#00D9A5" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <!-- raw.githubusercontent.com -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Label Text="&#x2750;" FontSize="20" TextColor="#00D9A5"
+                                   VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                <Label Text="raw.githubusercontent.com" FontSize="14" TextColor="White"/>
+                                <Label Text="Model manifest" FontSize="12" TextColor="#6B7280"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="&#x2713;" FontSize="16"
+                                   TextColor="#00D9A5" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <!-- Divider -->
+                        <BoxView HeightRequest="1" Color="#2A3540" Margin="0,4"/>
+
+                        <!-- Info note -->
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                            <Label Text="&#x24D8;" FontSize="14" TextColor="#6B7280"
+                                   VerticalOptions="Start" Margin="0,1,0,0"/>
+                            <Label Grid.Column="1"
+                                   Text="Any requests to other domains are flagged as suspicious"
+                                   FontSize="12" TextColor="#6B7280"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ========== Audit Log Section Header ========== -->
+                <Label Text="Audit Log"
+                       FontSize="16" FontAttributes="Bold" TextColor="White"
+                       Margin="20,0,20,8"/>
+
+                <!-- ========== Audit Log Entries ========== -->
+                <CollectionView ItemsSource="{Binding Entries}"
+                                Margin="16,0,16,16">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:NetworkAuditEntry">
+                            <Border StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#1A2530"
+                                    StrokeThickness="0"
+                                    Padding="14" Margin="0,0,0,10">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <!-- Status circle icon -->
+                                    <Border StrokeShape="RoundRectangle 20"
+                                            BackgroundColor="#1A4D3D"
+                                            WidthRequest="40" HeightRequest="40"
+                                            StrokeThickness="0">
+                                        <Label Text="&#x2714;" FontSize="18" TextColor="#00D9A5"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Border>
+
+                                    <!-- URL + details -->
+                                    <VerticalStackLayout Grid.Column="1" Spacing="3"
+                                                         VerticalOptions="Center">
+                                        <Label Text="{Binding Url}" FontSize="13"
+                                               TextColor="White" LineBreakMode="TailTruncation"
+                                               MaxLines="1"/>
+                                        <Label FontSize="11" TextColor="#8899A6">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0} &#x2022; {1}">
+                                                    <Binding Path="RequestType"/>
+                                                    <Binding Path="DataSize"/>
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label Text="{Binding Timestamp, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                               FontSize="11" TextColor="#6B7280"/>
+                                    </VerticalStackLayout>
+
+                                    <!-- Trailing status icon -->
+                                    <Label Grid.Column="2" Text="&#x2713;" FontSize="18"
+                                           TextColor="#00D9A5" VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout Spacing="16" Padding="32"
+                                             HorizontalOptions="Center"
+                                             VerticalOptions="Center">
+                            <!-- Shield / verified icon circle -->
+                            <Border StrokeShape="RoundRectangle 40"
+                                    BackgroundColor="#0D2E24"
+                                    WidthRequest="80" HeightRequest="80"
+                                    StrokeThickness="0"
+                                    HorizontalOptions="Center">
+                                <Label Text="&#x2714;" FontSize="36" TextColor="#00D9A5"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </Border>
+                            <Label Text="No Network Activity"
+                                   FontSize="18" FontAttributes="Bold" TextColor="White"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Ghost runs completely offline. Network requests only occur when downloading models or fetching the manifest."
+                                   FontSize="14" TextColor="#6B7280"
+                                   HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                                   Margin="16,0"/>
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+
+                <!-- ========== Bottom Clear Button ========== -->
+                <Button Text="Clear Audit Logs"
+                        Command="{Binding ClearCommand}"
+                        BackgroundColor="#1A2530"
+                        TextColor="#FF6B6B"
+                        BorderColor="#FF6B6B"
+                        BorderWidth="1"
+                        CornerRadius="14"
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HeightRequest="50"
+                        Margin="16,4,16,20"
+                        IsVisible="{Binding HasEntries}"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

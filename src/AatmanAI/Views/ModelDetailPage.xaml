@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             x:Class="AatmanAI.Views.ModelDetailPage"
+             x:DataType="vm:ModelDetailViewModel"
+             BackgroundColor="{StaticResource BackgroundDark}"
+             Title="Power Ghost">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="20,8,20,32">
+
+            <!-- Model Visual Card -->
+            <Border StrokeShape="RoundRectangle 20"
+                    BackgroundColor="#1A1408"
+                    Stroke="{StaticResource AccentGoldDim}"
+                    StrokeThickness="1"
+                    Padding="24,28"
+                    HorizontalOptions="Fill">
+                <VerticalStackLayout Spacing="14" HorizontalOptions="Center">
+                    <!-- Abstract orb -->
+                    <Border StrokeShape="RoundRectangle 50"
+                            BackgroundColor="{StaticResource AccentGoldDim}"
+                            Stroke="{StaticResource AccentGold}"
+                            StrokeThickness="1"
+                            WidthRequest="100" HeightRequest="100"
+                            HorizontalOptions="Center">
+                        <Border.Shadow>
+                            <Shadow Brush="#D4AF37" Offset="0,0" Radius="24" Opacity="0.2"/>
+                        </Border.Shadow>
+                        <Label Text="&#x1F310;" FontSize="44"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+
+                    <!-- OFFLINE READY badge -->
+                    <Border StrokeShape="RoundRectangle 12"
+                            BackgroundColor="{StaticResource AccentGreenDim}"
+                            Stroke="{StaticResource AccentGreenDark}"
+                            StrokeThickness="1"
+                            Padding="10,4" HorizontalOptions="Center">
+                        <HorizontalStackLayout Spacing="5">
+                            <Border StrokeShape="RoundRectangle 3"
+                                    BackgroundColor="{StaticResource AccentGreen}"
+                                    WidthRequest="6" HeightRequest="6"
+                                    StrokeThickness="0" VerticalOptions="Center"/>
+                            <Label Text="OFFLINE READY" FontSize="9"
+                                   TextColor="{StaticResource AccentGreen}"
+                                   FontAttributes="Bold" CharacterSpacing="1"/>
+                        </HorizontalStackLayout>
+                    </Border>
+
+                    <!-- Model Name -->
+                    <Label Text="{Binding ModelName}" FontSize="24" FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}"
+                           HorizontalOptions="Center"/>
+
+                    <!-- Description -->
+                    <Label Text="{Binding ModelDescription}" FontSize="13"
+                           TextColor="{StaticResource TextTertiary}"
+                           HorizontalTextAlignment="Center"
+                           LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Technical Specs -->
+            <Label Text="TECHNICAL SPECIFICATIONS" FontSize="10"
+                   TextColor="{StaticResource AccentYellow}"
+                   CharacterSpacing="1.5" Margin="4,8,0,0"/>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Border StrokeShape="RoundRectangle 14"
+                        BackgroundColor="{StaticResource SurfaceDark}"
+                        Stroke="{StaticResource BorderSubtle}"
+                        StrokeThickness="1"
+                        Padding="16,14">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="PARAMETERS" FontSize="9"
+                               TextColor="{StaticResource TextDim}" CharacterSpacing="1"/>
+                        <Label Text="{Binding ModelParameters}" FontSize="18" FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}"/>
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1" StrokeShape="RoundRectangle 14"
+                        BackgroundColor="{StaticResource SurfaceDark}"
+                        Stroke="{StaticResource BorderSubtle}"
+                        StrokeThickness="1"
+                        Padding="16,14">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="CONTEXT WINDOW" FontSize="9"
+                               TextColor="{StaticResource TextDim}" CharacterSpacing="1"/>
+                        <Label Text="{Binding ContextWindow}" FontSize="18" FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Zero-data retention -->
+            <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" Margin="0,4,0,0">
+                <Label Text="&#x2705;" FontSize="12"/>
+                <Label Text="ZERO-DATA RETENTION GUARANTEED" FontSize="10"
+                       TextColor="{StaticResource AccentGreen}"
+                       CharacterSpacing="1"/>
+            </HorizontalStackLayout>
+
+            <!-- Unlock Button -->
+            <Border StrokeShape="RoundRectangle 14"
+                    BackgroundColor="{StaticResource AccentGoldDim}"
+                    Stroke="{StaticResource AccentGold}"
+                    StrokeThickness="1.5"
+                    Padding="0" HeightRequest="56">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding UnlockIntelligenceCommand}"/>
+                </Border.GestureRecognizers>
+                <Grid ColumnDefinitions="*,Auto" Padding="20,0">
+                    <Label Text="Unlock Intelligence" FontSize="15" FontAttributes="Bold"
+                           TextColor="{StaticResource AccentYellow}"
+                           VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Text="{Binding ModelPrice}" FontSize="15"
+                           FontAttributes="Bold" TextColor="{StaticResource AccentYellow}"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Watch Ad -->
+            <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+                <Label Text="&#x1F441;" FontSize="12" TextColor="{StaticResource AccentGreen}"/>
+                <Label Text="Watch Ad to Earn Credits" FontSize="13"
+                       TextColor="{StaticResource TextSecondary}" TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding WatchAdCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+
+            <!-- Capabilities List -->
+            <VerticalStackLayout Spacing="14" Margin="0,12,0,0">
+                <!-- Advanced Reasoning -->
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                    <Label Text="&#x1F9E0;" FontSize="20" VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                        <Label Text="Advanced Reasoning" FontSize="15" FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Solves complex logic puzzles locally."
+                               FontSize="12" TextColor="{StaticResource TextTertiary}"/>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Creative Synthesis -->
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                    <Label Text="&#x2728;" FontSize="20" VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                        <Label Text="Creative Synthesis" FontSize="15" FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Generates stories &amp; content instantly."
+                               FontSize="12" TextColor="{StaticResource TextTertiary}"/>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Code Assistant -->
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                    <Label Text="&#x1F4BB;" FontSize="20" VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                        <Label Text="Code Assistant" FontSize="15" FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Supports Python, JS, and Rust."
+                               FontSize="12" TextColor="{StaticResource TextTertiary}"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </VerticalStackLayout>
+
+            <!-- Quote -->
+            <Label Text="&quot;Experience low-latency intelligence without data leaving your device. The Power tier offers the perfect balance of speed and depth, crafted for the modern creator.&quot;"
+                   FontSize="12" TextColor="{StaticResource TextDim}"
+                   FontAttributes="Italic"
+                   HorizontalTextAlignment="Center"
+                   LineBreakMode="WordWrap"
+                   Margin="0,12,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

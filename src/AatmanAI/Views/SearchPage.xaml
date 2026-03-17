@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             x:Class="AatmanAI.Views.SearchPage"
+             x:DataType="vm:SearchViewModel"
+             BackgroundColor="{StaticResource BackgroundDark}"
+             Title="Universal Search">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Padding="20,12" ColumnDefinitions="*,Auto">
+            <Label Text="Universal Search" FontSize="18" FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}" VerticalOptions="Center"/>
+            <Border Grid.Column="1" StrokeShape="RoundRectangle 14"
+                    BackgroundColor="{StaticResource AccentGreenDim}"
+                    Stroke="{StaticResource AccentGreenDark}"
+                    StrokeThickness="1"
+                    Padding="10,5">
+                <HorizontalStackLayout Spacing="5">
+                    <Label Text="&#x1F512;" FontSize="10" VerticalOptions="Center"/>
+                    <Label Text="OFFLINE" FontSize="9" FontAttributes="Bold"
+                           TextColor="{StaticResource AccentGreen}"
+                           CharacterSpacing="1" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </Border>
+        </Grid>
+
+        <!-- Search Bar -->
+        <Border Grid.Row="1" StrokeShape="RoundRectangle 14"
+                BackgroundColor="{StaticResource SurfaceDark}"
+                Stroke="{StaticResource BorderSubtle}"
+                StrokeThickness="1"
+                Padding="0" HeightRequest="52"
+                Margin="20,0,20,8">
+            <Grid ColumnDefinitions="Auto,*,Auto" Padding="14,0">
+                <Label Text="&#x1F50D;" FontSize="16"
+                       TextColor="{StaticResource TextTertiary}"
+                       VerticalOptions="Center"/>
+                <Entry Grid.Column="1" Placeholder="Search..."
+                       PlaceholderColor="{StaticResource TextTertiary}"
+                       TextColor="{StaticResource TextPrimary}"
+                       BackgroundColor="Transparent"
+                       Text="{Binding SearchQuery}"
+                       ReturnCommand="{Binding SearchCommand}"
+                       FontSize="15" Margin="10,0,0,0"/>
+                <Label Grid.Column="2" Text="&#x1F3A4;" FontSize="16"
+                       TextColor="{StaticResource TextTertiary}"
+                       VerticalOptions="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Filter Tabs -->
+        <HorizontalStackLayout Grid.Row="2" Spacing="8" Margin="20,4,20,8">
+            <Border StrokeShape="RoundRectangle 16"
+                    BackgroundColor="{StaticResource AccentYellow}"
+                    StrokeThickness="0"
+                    Padding="14,7">
+                <Label Text="All" FontSize="12" FontAttributes="Bold"
+                       TextColor="{StaticResource BackgroundDark}"/>
+            </Border>
+            <Border StrokeShape="RoundRectangle 16"
+                    BackgroundColor="Transparent"
+                    Stroke="{StaticResource BorderSubtle}"
+                    StrokeThickness="1"
+                    Padding="14,7">
+                <HorizontalStackLayout Spacing="4">
+                    <Label Text="&#x1F4AC;" FontSize="11"/>
+                    <Label Text="Chats" FontSize="12"
+                           TextColor="{StaticResource TextSecondary}"/>
+                </HorizontalStackLayout>
+            </Border>
+            <Border StrokeShape="RoundRectangle 16"
+                    BackgroundColor="Transparent"
+                    Stroke="{StaticResource BorderSubtle}"
+                    StrokeThickness="1"
+                    Padding="14,7">
+                <HorizontalStackLayout Spacing="4">
+                    <Label Text="&#x1F4D1;" FontSize="11"/>
+                    <Label Text="PDFs" FontSize="12"
+                           TextColor="{StaticResource TextSecondary}"/>
+                </HorizontalStackLayout>
+            </Border>
+            <Border StrokeShape="RoundRectangle 16"
+                    BackgroundColor="Transparent"
+                    Stroke="{StaticResource BorderSubtle}"
+                    StrokeThickness="1"
+                    Padding="14,7">
+                <HorizontalStackLayout Spacing="4">
+                    <Label Text="&#x1F4DD;" FontSize="11"/>
+                    <Label Text="Notes" FontSize="12"
+                           TextColor="{StaticResource TextSecondary}"/>
+                </HorizontalStackLayout>
+            </Border>
+        </HorizontalStackLayout>
+
+        <!-- Results -->
+        <VerticalStackLayout Grid.Row="3" Padding="20,8,20,20" Spacing="12">
+            <!-- Results header -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="TOP RESULTS" FontSize="10" FontAttributes="Bold"
+                       TextColor="{StaticResource TextDim}" CharacterSpacing="1.5"/>
+                <Label Grid.Column="1"
+                       Text="{Binding ResultCount, StringFormat='{0} items found'}"
+                       FontSize="12" TextColor="{StaticResource TextTertiary}"/>
+            </Grid>
+
+            <!-- Placeholder results -->
+            <Border StrokeShape="RoundRectangle 14"
+                    BackgroundColor="{StaticResource SurfaceDark}"
+                    Stroke="{StaticResource BorderSubtle}"
+                    StrokeThickness="1"
+                    Padding="16,14">
+                <VerticalStackLayout Spacing="8">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                        <Label Text="&#x1F4D3;" FontSize="18" VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Dream Journal - March" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{StaticResource TextPrimary}"/>
+                            <Label Text="Updated 2 hours ago" FontSize="11"
+                                   TextColor="{StaticResource TextTertiary}"/>
+                        </VerticalStackLayout>
+                        <Border Grid.Column="2" StrokeShape="RoundRectangle 8"
+                                BackgroundColor="{StaticResource AccentGreenDim}"
+                                StrokeThickness="0" Padding="6,2">
+                            <Label Text="FOUND IN VAULT" FontSize="8" FontAttributes="Bold"
+                                   TextColor="{StaticResource AccentGreen}"/>
+                        </Border>
+                    </Grid>
+                    <Label Text="...and suddenly I felt a shift in consciousness, as if the walls of the room were dissolving into pure light..."
+                           FontSize="12" TextColor="{StaticResource TextTertiary}"
+                           LineBreakMode="WordWrap" MaxLines="3"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 14"
+                    BackgroundColor="{StaticResource SurfaceDark}"
+                    Stroke="{StaticResource BorderSubtle}"
+                    StrokeThickness="1"
+                    Padding="16,14">
+                <VerticalStackLayout Spacing="8">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                        <Label Text="&#x1F4AC;" FontSize="18" VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Session with Maya" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{StaticResource TextPrimary}"/>
+                            <Label Text="Yesterday &#x2022; 10:42 PM" FontSize="11"
+                                   TextColor="{StaticResource TextTertiary}"/>
+                        </VerticalStackLayout>
+                        <Border Grid.Column="2" StrokeShape="RoundRectangle 8"
+                                BackgroundColor="{StaticResource AccentPurpleDim}"
+                                StrokeThickness="0" Padding="6,2">
+                            <Label Text="FOUND IN CHAT" FontSize="8" FontAttributes="Bold"
+                                   TextColor="{StaticResource AccentPurple}"/>
+                        </Border>
+                    </Grid>
+                    <Label Text="...exploring the nature of higher consciousness is key to understanding your recurring patterns..."
+                           FontSize="12" TextColor="{StaticResource TextTertiary}"
+                           LineBreakMode="WordWrap" MaxLines="3"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 14"
+                    BackgroundColor="{StaticResource SurfaceDark}"
+                    Stroke="{StaticResource BorderSubtle}"
+                    StrokeThickness="1"
+                    Padding="16,14">
+                <VerticalStackLayout Spacing="8">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                        <Label Text="&#x1F4D1;" FontSize="18" VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="The Quantum Self.pdf" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{StaticResource TextPrimary}"/>
+                            <Label Text="Added Mar 12, 2024" FontSize="11"
+                                   TextColor="{StaticResource TextTertiary}"/>
+                        </VerticalStackLayout>
+                        <Border Grid.Column="2" StrokeShape="RoundRectangle 8"
+                                BackgroundColor="{StaticResource AccentGreenDim}"
+                                StrokeThickness="0" Padding="6,2">
+                            <Label Text="FOUND IN VAULT" FontSize="8" FontAttributes="Bold"
+                                   TextColor="{StaticResource AccentGreen}"/>
+                        </Border>
+                    </Grid>
+                    <Label Text="Page 42: The observer effect implies that consciousness itself collapses the wave function into reality..."
+                           FontSize="12" TextColor="{StaticResource TextTertiary}"
+                           LineBreakMode="WordWrap" MaxLines="3"/>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

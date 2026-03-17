@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             x:Class="AatmanAI.Views.ProfileLicensePage"
+             x:DataType="vm:ProfileLicenseViewModel"
+             BackgroundColor="{StaticResource BackgroundDark}"
+             Title="Profile &amp; Licenses">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="20,16,20,32">
+
+            <!-- Avatar + Membership -->
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Border StrokeShape="RoundRectangle 45"
+                        BackgroundColor="{StaticResource SurfaceDark}"
+                        Stroke="{StaticResource AccentGold}"
+                        StrokeThickness="2"
+                        WidthRequest="90" HeightRequest="90"
+                        HorizontalOptions="Center">
+                    <Label Text="&#x1F9D1;" FontSize="40"
+                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Border>
+
+                <!-- Membership Badge -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="{StaticResource AccentGoldDim}"
+                        Stroke="{StaticResource AccentGold}"
+                        StrokeThickness="1"
+                        Padding="14,6"
+                        HorizontalOptions="Center">
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="&#x2B50;" FontSize="12" VerticalOptions="Center"/>
+                        <Label Text="{Binding MembershipTier}" FontSize="10"
+                               FontAttributes="Bold" TextColor="{StaticResource AccentYellow}"
+                               CharacterSpacing="1" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <Label Text="{Binding StatusText}" FontSize="13"
+                       TextColor="{StaticResource AccentPurple}"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Device Identity Card -->
+            <Border StrokeShape="RoundRectangle 18"
+                    BackgroundColor="{StaticResource SurfaceDark}"
+                    Stroke="{StaticResource BorderSubtle}"
+                    StrokeThickness="1"
+                    Padding="20,16">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="LOCAL DEVICE IDENTITY" FontSize="10"
+                               TextColor="{StaticResource TextDim}"
+                               CharacterSpacing="1.5"/>
+                        <Border Grid.Column="1" StrokeShape="RoundRectangle 10"
+                                BackgroundColor="{StaticResource AccentGreenDim}"
+                                Stroke="{StaticResource AccentGreenDark}"
+                                StrokeThickness="1"
+                                Padding="8,3">
+                            <Label Text="ENCRYPTED &amp; OFFLINE" FontSize="8"
+                                   TextColor="{StaticResource AccentGreen}"
+                                   FontAttributes="Bold" CharacterSpacing="0.5"/>
+                        </Border>
+                    </Grid>
+
+                    <Label Text="{Binding DeviceIdentity}" FontSize="28" FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}"
+                           CharacterSpacing="3"/>
+
+                    <Grid ColumnDefinitions="*,*">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="MODEL VERSION" FontSize="9"
+                                   TextColor="{StaticResource TextDim}" CharacterSpacing="1"/>
+                            <Label Text="{Binding ModelVersion}" FontSize="13"
+                                   TextColor="{StaticResource TextSecondary}"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" HorizontalOptions="End">
+                            <Label Text="LAST SYNC" FontSize="9"
+                                   TextColor="{StaticResource TextDim}" CharacterSpacing="1"
+                                   HorizontalTextAlignment="End"/>
+                            <Label Text="{Binding LastSync}" FontSize="13"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="End"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- License History -->
+            <Label Text="License History" FontSize="16" FontAttributes="Bold"
+                   TextColor="{StaticResource TextPrimary}" Margin="4,8,0,0"/>
+
+            <!-- License Items -->
+            <Border StrokeShape="RoundRectangle 14"
+                    BackgroundColor="{StaticResource SurfaceDark}"
+                    Stroke="{StaticResource BorderSubtle}"
+                    StrokeThickness="1"
+                    Padding="16,12">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                    <Border StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{StaticResource AccentGreenDim}"
+                            WidthRequest="40" HeightRequest="40"
+                            StrokeThickness="0">
+                        <Label Text="&#x1F9E0;" FontSize="18"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                        <Label Text="Offline NLP Core" FontSize="14" FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Unlocked &#x2022; 12 Oct 2023" FontSize="11"
+                               TextColor="{StaticResource TextTertiary}"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 14"
+                    BackgroundColor="{StaticResource SurfaceDark}"
+                    Stroke="{StaticResource BorderSubtle}"
+                    StrokeThickness="1"
+                    Padding="16,12">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                    <Border StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{StaticResource AccentPurpleDim}"
+                            WidthRequest="40" HeightRequest="40"
+                            StrokeThickness="0">
+                        <Label Text="&#x1F47B;" FontSize="18"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                        <Label Text="Personality Matrix V2" FontSize="14" FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Unlocked &#x2022; 05 Nov 2023" FontSize="11"
+                               TextColor="{StaticResource TextTertiary}"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 14"
+                    BackgroundColor="{StaticResource SurfaceDark}"
+                    Stroke="{StaticResource BorderSubtle}"
+                    StrokeThickness="1"
+                    Padding="16,12">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                    <Border StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{StaticResource AccentGoldDim}"
+                            WidthRequest="40" HeightRequest="40"
+                            StrokeThickness="0">
+                        <Label Text="&#x1F4CA;" FontSize="18"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                        <Label Text="Advanced Analytics Pack" FontSize="14" FontAttributes="Bold"
+                               TextColor="{StaticResource TextPrimary}"/>
+                        <Label Text="Unlocked &#x2022; 25 Dec 2023" FontSize="11"
+                               TextColor="{StaticResource TextTertiary}"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Restore Button -->
+            <Button Text="&#x1F504;  Restore Local Licenses"
+                    Command="{Binding RestoreLicensesCommand}"
+                    BackgroundColor="{StaticResource AccentPurple}"
+                    TextColor="White"
+                    FontAttributes="Bold" FontSize="14"
+                    CornerRadius="14" HeightRequest="54"
+                    Margin="0,8,0,0">
+                <Button.Shadow>
+                    <Shadow Brush="#6366F1" Offset="0,4" Radius="12" Opacity="0.2"/>
+                </Button.Shadow>
+            </Button>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

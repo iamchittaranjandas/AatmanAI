@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             x:Class="AatmanAI.Views.ProfileSetupPage"
+             x:DataType="vm:ProfileSetupViewModel"
+             BackgroundColor="#0A0E14"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Title="Private Profile">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="48,*,48" Padding="8">
+            <Border StrokeShape="RoundRectangle 10"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    WidthRequest="48" HeightRequest="48">
+                <Label Text="&#x276E;" FontSize="24" TextColor="White"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+
+            <Label Grid.Column="1"
+                   Text="Private Profile"
+                   FontSize="18" FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+
+        <!-- Scrollable Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,16,24,24">
+
+                <!-- ==================== Profile Photo ==================== -->
+                <Grid WidthRequest="120" HeightRequest="120"
+                      HorizontalOptions="Center" Margin="0,0,0,8">
+                    <!-- Circle background with gradient -->
+                    <Border StrokeShape="RoundRectangle 60"
+                            WidthRequest="120" HeightRequest="120"
+                            StrokeThickness="2"
+                            Stroke="#2B5E5E">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#1A3A3A" Offset="0"/>
+                                <GradientStop Color="#0D2020" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Label Text="&#x25CF;" FontSize="54" TextColor="#4A8A8A"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <!-- Plus badge -->
+                    <Border StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#00D9A5"
+                            Stroke="#0A0E14" StrokeThickness="3"
+                            WidthRequest="36" HeightRequest="36"
+                            HorizontalOptions="End" VerticalOptions="End"
+                            Margin="0,0,2,2">
+                        <Label Text="+" FontSize="20" TextColor="#0A0E14" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                </Grid>
+
+                <Label Text="Tap to upload photo" FontSize="13"
+                       TextColor="#6B7280" HorizontalOptions="Center"
+                       Margin="0,0,0,28"/>
+
+                <!-- ==================== Full Name ==================== -->
+                <Label Text="Full Name" FontSize="13" FontAttributes="Bold"
+                       TextColor="White" Margin="0,0,0,8"/>
+                <Border StrokeShape="RoundRectangle 12"
+                        BackgroundColor="#12181F"
+                        Stroke="#374151" StrokeThickness="1"
+                        HeightRequest="52" Padding="0">
+                    <Grid ColumnDefinitions="48,*">
+                        <Label Text="&#x2662;" FontSize="18" TextColor="#6B7280"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Placeholder="Alex Mercer"
+                               PlaceholderColor="#4B5563"
+                               TextColor="White" FontSize="14"
+                               BackgroundColor="Transparent"
+                               Text="{Binding FullName}"
+                               Margin="0,0,16,0"/>
+                    </Grid>
+                </Border>
+
+                <!-- ==================== Life Goal ==================== -->
+                <Label Text="Life Goal" FontSize="13" FontAttributes="Bold"
+                       TextColor="White" Margin="0,20,0,8"/>
+                <Border StrokeShape="RoundRectangle 12"
+                        BackgroundColor="#12181F"
+                        Stroke="#374151" StrokeThickness="1"
+                        HeightRequest="52" Padding="0">
+                    <Grid ColumnDefinitions="48,*">
+                        <Label Text="&#x2691;" FontSize="18" TextColor="#6B7280"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Placeholder="e.g., Find clarity"
+                               PlaceholderColor="#4B5563"
+                               TextColor="White" FontSize="14"
+                               BackgroundColor="Transparent"
+                               Text="{Binding LifeGoal}"
+                               Margin="0,0,16,0"/>
+                    </Grid>
+                </Border>
+
+                <!-- ==================== Interests ==================== -->
+                <Grid ColumnDefinitions="*,Auto" Margin="0,24,0,12">
+                    <Label Text="Interests" FontSize="13" FontAttributes="Bold"
+                           TextColor="White"/>
+                    <Label Grid.Column="1" Text="Select up to 5" FontSize="12"
+                           TextColor="#6B7280"/>
+                </Grid>
+
+                <FlexLayout Wrap="Wrap" Direction="Row"
+                            JustifyContent="Start" AlignItems="Start">
+                    <!-- Mindfulness (unselected) -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#12181F"
+                            Stroke="#4B5563" StrokeThickness="1"
+                            Padding="16,10" Margin="0,0,10,10">
+                        <Label Text="Mindfulness" FontSize="13" TextColor="White"/>
+                    </Border>
+
+                    <!-- Deep Tech (selected) -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#0D2E24"
+                            Stroke="#00D9A5" StrokeThickness="1.5"
+                            Padding="16,10" Margin="0,0,10,10">
+                        <Label Text="Deep Tech" FontSize="13" FontAttributes="Bold"
+                               TextColor="#00D9A5"/>
+                    </Border>
+
+                    <!-- Philosophy (unselected) -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#12181F"
+                            Stroke="#4B5563" StrokeThickness="1"
+                            Padding="16,10" Margin="0,0,10,10">
+                        <Label Text="Philosophy" FontSize="13" TextColor="White"/>
+                    </Border>
+
+                    <!-- Art History (unselected) -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#12181F"
+                            Stroke="#4B5563" StrokeThickness="1"
+                            Padding="16,10" Margin="0,0,10,10">
+                        <Label Text="Art History" FontSize="13" TextColor="White"/>
+                    </Border>
+
+                    <!-- Offline AI (selected) -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#0D2E24"
+                            Stroke="#00D9A5" StrokeThickness="1.5"
+                            Padding="16,10" Margin="0,0,10,10">
+                        <Label Text="Offline AI" FontSize="13" FontAttributes="Bold"
+                               TextColor="#00D9A5"/>
+                    </Border>
+
+                    <!-- Finance (unselected) -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#12181F"
+                            Stroke="#4B5563" StrokeThickness="1"
+                            Padding="16,10" Margin="0,0,10,10">
+                        <Label Text="Finance" FontSize="13" TextColor="White"/>
+                    </Border>
+
+                    <!-- Biotech (unselected) -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#12181F"
+                            Stroke="#4B5563" StrokeThickness="1"
+                            Padding="16,10" Margin="0,0,10,10">
+                        <Label Text="Biotech" FontSize="13" TextColor="White"/>
+                    </Border>
+                </FlexLayout>
+
+                <!-- ==================== AI Privacy Level Card ==================== -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#12181F"
+                        Stroke="#374151" StrokeThickness="1"
+                        Padding="20" Margin="0,28,0,0">
+                    <VerticalStackLayout Spacing="0">
+
+                        <!-- Title row: shield icon + label -->
+                        <HorizontalStackLayout Spacing="10" Margin="0,0,0,16">
+                            <Border StrokeShape="RoundRectangle 6"
+                                    BackgroundColor="#332D00"
+                                    StrokeThickness="0"
+                                    WidthRequest="24" HeightRequest="24">
+                                <Label Text="&#x2666;" FontSize="12" TextColor="#FFD700"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </Border>
+                            <Label Text="AI Privacy Level" FontSize="15" FontAttributes="Bold"
+                                   TextColor="White" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <!-- ESSENTIAL label + privacy level text -->
+                        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,12">
+                            <Label Text="ESSENTIAL" FontSize="11" FontAttributes="Bold"
+                                   TextColor="#6B7280" CharacterSpacing="0.5"
+                                   VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+                                <Label Text="{Binding PrivacyLevelText}"
+                                       FontSize="13" FontAttributes="Bold"
+                                       TextColor="#00D9A5"
+                                       HorizontalTextAlignment="End"/>
+                                <Label Text="Local processing only" FontSize="10"
+                                       TextColor="#6B7280"
+                                       HorizontalTextAlignment="End"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <!-- Slider -->
+                        <Slider Minimum="0" Maximum="1"
+                                Value="{Binding PrivacyLevel}"
+                                MinimumTrackColor="#00D9A5"
+                                MaximumTrackColor="#1A2530"
+                                ThumbColor="#00D9A5"
+                                Margin="0,0,0,8"/>
+
+                        <!-- Privacy quote -->
+                        <Label Text="&quot;Your thoughts remain isolated. Zero cloud sync enabled.&quot;"
+                               FontSize="12" TextColor="#D4B800"
+                               FontAttributes="Italic"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ==================== Seal Profile Button ==================== -->
+                <Border StrokeShape="RoundRectangle 14"
+                        HeightRequest="54"
+                        StrokeThickness="0"
+                        Margin="0,28,0,0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Color="#FFD700" Offset="0"/>
+                            <GradientStop Color="#00D9A5" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SealProfileCommand}"/>
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center"
+                                           Spacing="8">
+                        <Label Text="&#x26BF;" FontSize="16" TextColor="#0A1A1F"
+                               VerticalOptions="Center"/>
+                        <Label Text="Seal Profile &amp; Continue"
+                               FontSize="16" FontAttributes="Bold"
+                               TextColor="#0A1A1F" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- ==================== Footer ==================== -->
+                <Label Text="AATMAN AI SECURE ENVIRONMENT"
+                       FontSize="11" TextColor="#4B5563"
+                       CharacterSpacing="1.5"
+                       HorizontalOptions="Center"
+                       Margin="0,16,0,24"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

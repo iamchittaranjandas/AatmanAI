@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             xmlns:models="clr-namespace:AatmanAI.Data.Models"
+             x:Class="AatmanAI.Views.HomePage"
+             x:DataType="vm:HomeViewModel"
+             BackgroundColor="#0A0E14"
+             Title="Home"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto,Auto">
+
+        <!-- ==================== HEADER ==================== -->
+        <!-- Flutter: Padding horizontal=20 vertical=16, Row with lock icon, title+badge, custom prompts btn, settings btn -->
+        <Grid Grid.Row="0" Padding="20,50,20,8" ColumnDefinitions="Auto,*,Auto,Auto">
+
+            <!-- Lock icon in 44x44 rounded container, bg 0xFF1A2530, radius 12 -->
+            <Border StrokeShape="RoundRectangle 12"
+                    BackgroundColor="#1A2530"
+                    StrokeThickness="0"
+                    WidthRequest="44" HeightRequest="44">
+                <Label Text="&#x1F512;&#xFE0E;" FontSize="18"
+                       TextColor="#00D9A5"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+
+            <!-- Title + Privacy Badge -->
+            <VerticalStackLayout Grid.Column="1" Margin="12,0,0,0" VerticalOptions="Center" Spacing="4">
+                <Label Text="Your Intelligence" FontSize="20" FontAttributes="Bold"
+                       TextColor="White"/>
+                <!-- PrivacyBadge compact: green dot + "OFFLINE - SECURE" -->
+                <HorizontalStackLayout Spacing="6">
+                    <Border StrokeShape="RoundRectangle 3"
+                            BackgroundColor="#00D9A5"
+                            WidthRequest="6" HeightRequest="6"
+                            StrokeThickness="0"
+                            VerticalOptions="Center"/>
+                    <Label Text="OFFLINE &#x2022; SECURE" FontSize="10"
+                           TextColor="#00D9A5"
+                           CharacterSpacing="1"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Custom Prompts button: 44x44 rounded container, bg 0xFF1A2530, radius 12 -->
+            <Border Grid.Column="2"
+                    StrokeShape="RoundRectangle 12"
+                    BackgroundColor="#1A2530"
+                    StrokeThickness="0"
+                    WidthRequest="44" HeightRequest="44"
+                    Margin="0,0,8,0"
+                    VerticalOptions="Center">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenMarketplaceCommand}"/>
+                </Border.GestureRecognizers>
+                <Label Text="&#x2750;" FontSize="18"
+                       TextColor="#9E9E9E"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+
+            <!-- Settings button: 44x44 rounded container, bg 0xFF1A2530, radius 12 -->
+            <Border Grid.Column="3"
+                    StrokeShape="RoundRectangle 12"
+                    BackgroundColor="#1A2530"
+                    StrokeThickness="0"
+                    WidthRequest="44" HeightRequest="44"
+                    VerticalOptions="Center">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenSettingsCommand}"/>
+                </Border.GestureRecognizers>
+                <Label Text="&#x2699;&#xFE0E;" FontSize="20"
+                       TextColor="#9E9E9E"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+        </Grid>
+
+        <!-- ==================== SEARCH + FILTERS ==================== -->
+        <VerticalStackLayout Grid.Row="1" Padding="20,12,20,4" Spacing="16">
+
+            <!-- Search bar: bg 0xFF12181F, radius 14, border grey.shade800, height 52 -->
+            <Border StrokeShape="RoundRectangle 14"
+                    BackgroundColor="#12181F"
+                    Stroke="#424242"
+                    StrokeThickness="1"
+                    Padding="0"
+                    HeightRequest="52">
+                <Grid ColumnDefinitions="Auto,*" Padding="16,0">
+                    <Label Text="&#x26B2;" FontSize="16"
+                           TextColor="#757575"
+                           VerticalOptions="Center"/>
+                    <Entry Grid.Column="1" Placeholder="Search secure threads..."
+                           PlaceholderColor="#757575"
+                           TextColor="White"
+                           BackgroundColor="Transparent"
+                           Text="{Binding SearchText}"
+                           FontSize="14" Margin="8,0,0,0"/>
+                </Grid>
+            </Border>
+
+            <!-- Filter tabs: horizontal scroll, selected=0xFF00D9A5 text black, unselected=0xFF1A2530 text grey, radius 20 -->
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <HorizontalStackLayout Spacing="10">
+                    <!-- Active chip: selected style -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#00D9A5"
+                            StrokeThickness="0"
+                            Padding="20,10">
+                        <Label Text="All Threads" FontSize="13" FontAttributes="Bold"
+                               TextColor="#000000"/>
+                    </Border>
+                    <!-- Inactive chips -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#1A2530"
+                            StrokeThickness="0"
+                            Padding="20,10">
+                        <Label Text="Vault Docs" FontSize="13"
+                               TextColor="#BDBDBD"/>
+                    </Border>
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#1A2530"
+                            StrokeThickness="0"
+                            Padding="20,10">
+                        <Label Text="Journal" FontSize="13"
+                               TextColor="#BDBDBD"/>
+                    </Border>
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#1A2530"
+                            StrokeThickness="0"
+                            Padding="20,10">
+                        <Label Text="Archived" FontSize="13"
+                               TextColor="#BDBDBD"/>
+                    </Border>
+                </HorizontalStackLayout>
+            </ScrollView>
+        </VerticalStackLayout>
+
+        <!-- ==================== RECENT ACTIVITY LABEL ==================== -->
+        <!-- Flutter: grey.shade500=#9E9E9E, fontSize 12, fontWeight w600, letterSpacing 1 -->
+        <Label Grid.Row="2" Text="RECENT ACTIVITY" FontSize="12" FontAttributes="Bold"
+               TextColor="#9E9E9E"
+               CharacterSpacing="1" Margin="22,16,0,8"/>
+
+        <!-- ==================== CONVERSATIONS LIST ==================== -->
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Conversations}"
+                        Margin="4,0" EmptyView="">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Conversation">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete" BackgroundColor="{StaticResource ErrorRed}"
+                                          Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=DeleteConversationCommand}"
+                                          CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <!-- Card: transparent bg, padding 12, margin bottom 16 -->
+                        <Border StrokeShape="RoundRectangle 12"
+                                BackgroundColor="Transparent"
+                                Stroke="Transparent"
+                                StrokeThickness="0"
+                                Padding="12"
+                                Margin="8,0,8,4"
+                                Opacity="{Binding IsFaded, Converter={StaticResource FadedOpacityConverter}}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=OpenChatCommand}"
+                                                     CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                                <!-- 52x52 icon container with colored bg at 15% opacity, radius 14 -->
+                                <Grid>
+                                    <Border StrokeShape="RoundRectangle 14"
+                                            BackgroundColor="#1A2530"
+                                            StrokeThickness="0"
+                                            WidthRequest="52" HeightRequest="52">
+                                        <Label Text="{Binding Icon, TargetNullValue='&#x2726;'}" FontSize="22"
+                                               TextColor="#00D9A5"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Border>
+                                    <!-- Pinned indicator dot -->
+                                    <Border StrokeShape="RoundRectangle 6"
+                                            BackgroundColor="#00D9A5"
+                                            Stroke="#0A0E14"
+                                            StrokeThickness="2"
+                                            WidthRequest="12" HeightRequest="12"
+                                            HorizontalOptions="End" VerticalOptions="Start"
+                                            Margin="0,-2,-2,0"
+                                            IsVisible="{Binding IsPinned}"/>
+                                </Grid>
+
+                                <!-- Content: title white 15px bold, subtitle grey, message count badge -->
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                                    <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold"
+                                           TextColor="White"
+                                           LineBreakMode="TailTruncation" MaxLines="1"/>
+                                    <Label Text="{Binding LastMessagePreview, TargetNullValue='Start chatting...'}"
+                                           FontSize="13" TextColor="#9E9E9E"
+                                           LineBreakMode="TailTruncation" MaxLines="1"/>
+                                    <!-- Message count badge: bg 0xFF1A2530, radius 12, border grey.shade700 -->
+                                    <Border StrokeShape="RoundRectangle 12"
+                                            BackgroundColor="#1A2530"
+                                            Stroke="#616161"
+                                            StrokeThickness="1"
+                                            Padding="10,5"
+                                            HorizontalOptions="Start"
+                                            IsVisible="{Binding BadgeText, Converter={StaticResource IsNotEmptyConverter}}">
+                                        <HorizontalStackLayout Spacing="4">
+                                            <Label Text="&#x25CB;" FontSize="10"
+                                                   TextColor="#9E9E9E"
+                                                   VerticalOptions="Center"/>
+                                            <Label Text="{Binding BadgeText}" FontSize="11"
+                                                   TextColor="#9E9E9E"/>
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <!-- Time text -->
+                                <Label Grid.Column="2"
+                                       Text="{Binding UpdatedAt, Converter={StaticResource RelativeTimeConverter}}"
+                                       FontSize="12"
+                                       TextColor="{Binding IsRecent, Converter={StaticResource TimeColorConverter}}"
+                                       VerticalOptions="Start" Margin="0,4,0,0"/>
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- ==================== EMPTY STATE ==================== -->
+        <!-- Flutter: 80x80 container bg 1A2530, radius 20, chat icon grey, "No conversations yet", "Start a new chat with Ghost" -->
+        <VerticalStackLayout Grid.Row="3" IsVisible="{Binding HasNoConversations}"
+                             VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
+            <Border StrokeShape="RoundRectangle 20"
+                    BackgroundColor="#1A2530"
+                    StrokeThickness="0"
+                    WidthRequest="80" HeightRequest="80"
+                    HorizontalOptions="Center">
+                <Label Text="&#x25CB;" FontSize="36"
+                       TextColor="#757575"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+            <Label Text="No conversations yet" FontSize="18" FontAttributes="Bold"
+                   TextColor="#BDBDBD" HorizontalOptions="Center"/>
+            <Label Text="Start a new chat with Ghost" FontSize="14"
+                   TextColor="#757575" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- ==================== FAB ==================== -->
+        <!-- Flutter: 60x60 circle, bg gradient 00D9A5->00B388, "+" icon black, size 28 -->
+        <Button Grid.Row="3" Text="+" FontSize="28" FontAttributes="Bold"
+                Command="{Binding NewChatCommand}"
+                BackgroundColor="#00D9A5"
+                TextColor="#000000"
+                CornerRadius="30" WidthRequest="60" HeightRequest="60"
+                HorizontalOptions="End" VerticalOptions="End"
+                Margin="0,0,20,16"
+                ZIndex="10">
+            <Button.Shadow>
+                <Shadow Brush="#00D9A5" Offset="0,4" Radius="16" Opacity="0.4"/>
+            </Button.Shadow>
+        </Button>
+
+        <!-- ==================== BOTTOM NAVIGATION ==================== -->
+        <!-- Flutter: border top grey.shade900, bg 0xFF0A0E14 -->
+        <BoxView Grid.Row="4" HeightRequest="1" Color="#212121"/>
+
+        <!-- Flutter: 4 nav items (Home, Vault, Sanctuary, Settings), bg 0xFF0D1117, selected=0xFF00D9A5 -->
+        <Grid Grid.Row="5" ColumnDefinitions="*,*,*"
+              BackgroundColor="#0D1117"
+              Padding="0,14,0,30">
+
+            <!-- Threads (Active) - Flutter: Icons.home_filled -->
+            <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                <Label Text="&#x2302;" FontSize="24"
+                       TextColor="#00D9A5"
+                       HorizontalOptions="Center"/>
+                <Label Text="Threads" FontSize="12" FontAttributes="Bold"
+                       TextColor="#00D9A5"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Vault - Flutter: Icons.folder_copy_outlined -->
+            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="4">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenVaultCommand}"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="&#x2750;" FontSize="22"
+                       TextColor="#757575"
+                       HorizontalOptions="Center"/>
+                <Label Text="Vault" FontSize="12"
+                       TextColor="#757575"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Insights - Flutter: Icons.auto_awesome -->
+            <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="4">
+                <Label Text="&#x2726;" FontSize="22"
+                       TextColor="#757575"
+                       HorizontalOptions="Center"/>
+                <Label Text="Insights" FontSize="12"
+                       TextColor="#757575"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
+
+    </Grid>
+</ContentPage>

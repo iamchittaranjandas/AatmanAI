@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             xmlns:models="clr-namespace:AatmanAI.Data.Models"
+             x:Class="AatmanAI.Views.MarketplacePage"
+             x:DataType="vm:MarketplaceViewModel"
+             BackgroundColor="#0A0E14"
+             Shell.NavBarIsVisible="False"
+             Title="Model Marketplace">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Solid opaque colors matching Flutter 0xFF... palette -->
+            <Color x:Key="PageBg">#0A0E14</Color>
+            <Color x:Key="CardBg">#1A2530</Color>
+            <Color x:Key="Accent">#00D9A5</Color>
+            <Color x:Key="AccentDim">#0D2E28</Color>
+            <Color x:Key="AccentDark">#0A8F6E</Color>
+            <Color x:Key="TabInactive">#4B5C6B</Color>
+            <Color x:Key="TabActiveBg">#122A2A</Color>
+            <Color x:Key="TxtPrimary">#FFFFFF</Color>
+            <Color x:Key="TxtSecondary">#9CA3AF</Color>
+            <Color x:Key="TxtTertiary">#6B7280</Color>
+            <Color x:Key="StatBg">#111B24</Color>
+            <Color x:Key="BorderClr">#1F2D3A</Color>
+            <Color x:Key="ErrorClr">#F43F5E</Color>
+            <Color x:Key="TierFree">#00D9A5</Color>
+            <Color x:Key="TierPower">#F59E0B</Color>
+            <Color x:Key="TierUltra">#EF4444</Color>
+            <Color x:Key="TierFreeBg">#0D2E28</Color>
+            <Color x:Key="TierPowerBg">#2E2510</Color>
+            <Color x:Key="TierUltraBg">#2E1010</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*" BackgroundColor="{StaticResource PageBg}">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- Row 0: Header Bar -->
+        <!-- ═══════════════════════════════════════════ -->
+        <Grid Grid.Row="0" Padding="20,16,20,8" ColumnDefinitions="*,Auto">
+            <Label Text="Model Marketplace"
+                   FontSize="22" FontAttributes="Bold"
+                   TextColor="{StaticResource TxtPrimary}"
+                   VerticalOptions="Center"/>
+            <Label Grid.Column="1" Text="Restore"
+                   FontSize="14" TextColor="{StaticResource Accent}"
+                   VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LoadCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- Row 1: Subtitle / Intro -->
+        <!-- ═══════════════════════════════════════════ -->
+        <VerticalStackLayout Grid.Row="1" Padding="20,0,20,12" Spacing="6">
+            <Label FontSize="14" TextColor="{StaticResource TxtTertiary}"
+                   Text="Download and run AI models locally on your device."/>
+        </VerticalStackLayout>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- Row 2: Tab Bar (4 tabs) -->
+        <!-- ═══════════════════════════════════════════ -->
+        <ScrollView Grid.Row="2" Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never"
+                    Padding="16,0,16,8">
+            <HorizontalStackLayout Spacing="8">
+                <!-- All Models tab -->
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="{Binding TabAllBg}"
+                        StrokeThickness="0"
+                        Padding="16,8">
+                    <Label Text="All Models" FontSize="13" FontAttributes="Bold"
+                           TextColor="{Binding TabAllText}"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectTabCommand}" CommandParameter="all"/>
+                    </Border.GestureRecognizers>
+                </Border>
+                <!-- Recommended tab -->
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="{Binding TabRecommendedBg}"
+                        StrokeThickness="0"
+                        Padding="16,8">
+                    <Label Text="Recommended" FontSize="13" FontAttributes="Bold"
+                           TextColor="{Binding TabRecommendedText}"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectTabCommand}" CommandParameter="recommended"/>
+                    </Border.GestureRecognizers>
+                </Border>
+                <!-- Downloaded tab -->
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="{Binding TabDownloadedBg}"
+                        StrokeThickness="0"
+                        Padding="16,8">
+                    <Label Text="Downloaded" FontSize="13" FontAttributes="Bold"
+                           TextColor="{Binding TabDownloadedText}"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectTabCommand}" CommandParameter="downloaded"/>
+                    </Border.GestureRecognizers>
+                </Border>
+                <!-- Available tab -->
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="{Binding TabAvailableBg}"
+                        StrokeThickness="0"
+                        Padding="16,8">
+                    <Label Text="Available" FontSize="13" FontAttributes="Bold"
+                           TextColor="{Binding TabAvailableText}"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectTabCommand}" CommandParameter="available"/>
+                    </Border.GestureRecognizers>
+                </Border>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- Row 3: Error Message -->
+        <!-- ═══════════════════════════════════════════ -->
+        <Label Grid.Row="3"
+               Text="{Binding ErrorMessage}"
+               TextColor="{StaticResource ErrorClr}"
+               FontSize="12" Margin="20,4"
+               IsVisible="{Binding ErrorMessage, Converter={StaticResource IsNotEmptyConverter}, FallbackValue=False}"/>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- Row 4: Model Cards List -->
+        <!-- ═══════════════════════════════════════════ -->
+        <CollectionView Grid.Row="4"
+                        ItemsSource="{Binding Models}"
+                        Margin="0,0,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:MarketplaceModelItem">
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="{StaticResource CardBg}"
+                            Stroke="{StaticResource BorderClr}"
+                            StrokeThickness="1"
+                            Margin="16,6"
+                            Padding="0">
+
+                        <VerticalStackLayout Spacing="0">
+
+                            <!-- ── Card Header: Tier Badge area ── -->
+                            <Border StrokeShape="RoundRectangle 16,16,0,0"
+                                    BackgroundColor="{StaticResource AccentDim}"
+                                    StrokeThickness="0"
+                                    Padding="16,14">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <!-- Tier Badge -->
+                                    <Border StrokeShape="RoundRectangle 8"
+                                            BackgroundColor="{StaticResource AccentDim}"
+                                            Stroke="{StaticResource AccentDark}"
+                                            StrokeThickness="1"
+                                            Padding="10,4"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Start">
+                                        <Label Text="{Binding Manifest.Tier}"
+                                               FontSize="10"
+                                               TextColor="{StaticResource Accent}"
+                                               FontAttributes="Bold"
+                                               CharacterSpacing="0.8"
+                                               TextTransform="Uppercase"/>
+                                    </Border>
+                                    <!-- Provider -->
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Manifest.Provider}"
+                                           FontSize="11"
+                                           TextColor="{StaticResource TxtTertiary}"
+                                           VerticalOptions="Center"
+                                           Margin="10,0,0,0"/>
+                                    <!-- Parameters pill -->
+                                    <Border Grid.Column="2"
+                                            StrokeShape="RoundRectangle 8"
+                                            BackgroundColor="{StaticResource StatBg}"
+                                            StrokeThickness="0"
+                                            Padding="8,4"
+                                            VerticalOptions="Center">
+                                        <Label Text="{Binding Manifest.Parameters}"
+                                               FontSize="11"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource Accent}"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <!-- ── Card Body ── -->
+                            <VerticalStackLayout Padding="16,14,16,16" Spacing="10">
+
+                                <!-- Model Name -->
+                                <Label Text="{Binding Manifest.Name}"
+                                       FontSize="18" FontAttributes="Bold"
+                                       TextColor="{StaticResource TxtPrimary}"/>
+
+                                <!-- Description -->
+                                <Label Text="{Binding Manifest.Description}"
+                                       FontSize="13"
+                                       TextColor="{StaticResource TxtTertiary}"
+                                       LineBreakMode="WordWrap"
+                                       MaxLines="2"/>
+
+                                <!-- Stats Row: File Size | RAM | Quantization -->
+                                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                                    <!-- File Size chip -->
+                                    <Border Grid.Column="0"
+                                            StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="{StaticResource StatBg}"
+                                            Stroke="{StaticResource BorderClr}"
+                                            StrokeThickness="1"
+                                            Padding="10,8">
+                                        <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                            <Label Text="&#x1F4BE; Size"
+                                                   FontSize="10"
+                                                   TextColor="{StaticResource TxtTertiary}"
+                                                   HorizontalOptions="Center"/>
+                                            <Label Text="{Binding Manifest.FileSizeDisplay}"
+                                                   FontSize="12" FontAttributes="Bold"
+                                                   TextColor="{StaticResource TxtPrimary}"
+                                                   HorizontalOptions="Center"/>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                    <!-- RAM chip -->
+                                    <Border Grid.Column="1"
+                                            StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="{StaticResource StatBg}"
+                                            Stroke="{StaticResource BorderClr}"
+                                            StrokeThickness="1"
+                                            Padding="10,8">
+                                        <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                            <Label Text="&#x1F9E0; RAM"
+                                                   FontSize="10"
+                                                   TextColor="{StaticResource TxtTertiary}"
+                                                   HorizontalOptions="Center"/>
+                                            <Label Text="{Binding Manifest.RamDisplay}"
+                                                   FontSize="12" FontAttributes="Bold"
+                                                   TextColor="{StaticResource Accent}"
+                                                   HorizontalOptions="Center"/>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                    <!-- Quantization chip -->
+                                    <Border Grid.Column="2"
+                                            StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="{StaticResource StatBg}"
+                                            Stroke="{StaticResource BorderClr}"
+                                            StrokeThickness="1"
+                                            Padding="10,8">
+                                        <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                            <Label Text="&#x2699;&#xFE0F; Quant"
+                                                   FontSize="10"
+                                                   TextColor="{StaticResource TxtTertiary}"
+                                                   HorizontalOptions="Center"/>
+                                            <Label Text="{Binding Manifest.Quantization}"
+                                                   FontSize="12" FontAttributes="Bold"
+                                                   TextColor="{StaticResource TxtPrimary}"
+                                                   HorizontalOptions="Center"/>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </Grid>
+
+                                <!-- ── Download / Progress / Use / Active Area ── -->
+
+                                <!-- Download button: visible when not downloading and not downloaded -->
+                                <Button Text="Download"
+                                        IsVisible="{Binding CanDownload}"
+                                        BackgroundColor="{StaticResource Accent}"
+                                        TextColor="{StaticResource PageBg}"
+                                        CornerRadius="12"
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        HeightRequest="48"
+                                        Margin="0,4,0,0"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MarketplaceViewModel}}, Path=DownloadModelCommand}"
+                                        CommandParameter="{Binding .}"/>
+
+                                <!-- Progress bar: visible while downloading -->
+                                <VerticalStackLayout IsVisible="{Binding ShowProgress}"
+                                                     Spacing="6" Margin="0,4,0,0">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label Text="Downloading..."
+                                               FontSize="13" FontAttributes="Bold"
+                                               TextColor="{StaticResource Accent}"
+                                               VerticalOptions="Center"/>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding ProgressPercent}"
+                                               FontSize="13" FontAttributes="Bold"
+                                               TextColor="{StaticResource TxtPrimary}"
+                                               VerticalOptions="Center"/>
+                                    </Grid>
+                                    <ProgressBar Progress="{Binding DownloadProgress}"
+                                                 ProgressColor="{StaticResource Accent}"
+                                                 HeightRequest="6"/>
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label Text="{Binding SpeedText}"
+                                               FontSize="11"
+                                               TextColor="{StaticResource TxtTertiary}"/>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding EtaText}"
+                                               FontSize="11"
+                                               TextColor="{StaticResource TxtTertiary}"/>
+                                    </Grid>
+                                </VerticalStackLayout>
+
+                                <!-- Use button: downloaded but not active -->
+                                <Button Text="Use This Model"
+                                        IsVisible="{Binding CanUse}"
+                                        BackgroundColor="{StaticResource StatBg}"
+                                        TextColor="{StaticResource Accent}"
+                                        BorderColor="{StaticResource Accent}"
+                                        BorderWidth="1.5"
+                                        CornerRadius="12"
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        HeightRequest="48"
+                                        Margin="0,4,0,0"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MarketplaceViewModel}}, Path=UseModelCommand}"
+                                        CommandParameter="{Binding .}"/>
+
+                                <!-- Active badge: currently used in chat -->
+                                <Border IsVisible="{Binding IsActive}"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="{StaticResource AccentDim}"
+                                        Stroke="{StaticResource Accent}"
+                                        StrokeThickness="1.5"
+                                        HeightRequest="48"
+                                        Margin="0,4,0,0">
+                                    <HorizontalStackLayout HorizontalOptions="Center"
+                                                           VerticalOptions="Center"
+                                                           Spacing="8">
+                                        <Label Text="&#x2713;"
+                                               FontSize="16" FontAttributes="Bold"
+                                               TextColor="{StaticResource Accent}"
+                                               VerticalOptions="Center"/>
+                                        <Label Text="Currently Active"
+                                               FontSize="14" FontAttributes="Bold"
+                                               TextColor="{StaticResource Accent}"
+                                               VerticalOptions="Center"/>
+                                    </HorizontalStackLayout>
+                                </Border>
+
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <!-- Empty state -->
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center"
+                                     Spacing="8" Padding="40">
+                    <Label Text="No models available"
+                           FontSize="16" FontAttributes="Bold"
+                           TextColor="{StaticResource TxtSecondary}"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Pull to refresh or check your connection."
+                           FontSize="13"
+                           TextColor="{StaticResource TxtTertiary}"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator Grid.Row="4"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           Color="{StaticResource Accent}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           HeightRequest="48"
+                           WidthRequest="48"/>
+    </Grid>
+</ContentPage>

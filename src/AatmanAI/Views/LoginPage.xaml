@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AatmanAI.ViewModels"
+             x:Class="AatmanAI.Views.LoginPage"
+             x:DataType="vm:LoginViewModel"
+             BackgroundColor="#0A0E14"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+
+    <!-- Layered gradient background matching Flutter: #0D2127 -> #0A1A1F -> #061114 -->
+    <Grid>
+        <BoxView Color="#061114"/>
+        <BoxView Color="#0A1A1F" Opacity="0.85" VerticalOptions="Start" HeightRequest="500"/>
+        <BoxView Color="#0D2127" Opacity="0.7" VerticalOptions="Start" HeightRequest="250"/>
+
+        <ScrollView>
+            <Grid RowDefinitions="2*,Auto,Auto,2*,Auto,Auto,Auto,Auto,Auto,*,Auto,Auto,*,Auto,Auto"
+                  Padding="24,0">
+
+                <!-- ========== LOGO ========== -->
+                <Border Grid.Row="1"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#162D2D"
+                        Stroke="#2B8C78"
+                        StrokeThickness="2"
+                        WidthRequest="80" HeightRequest="80"
+                        HorizontalOptions="Center">
+                    <Label Text="&#x2B22;" FontSize="44"
+                           TextColor="#00D9A5"
+                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Border>
+
+                <!-- ========== TITLE + SUBTITLE ========== -->
+                <VerticalStackLayout Grid.Row="2" Spacing="4"
+                                     HorizontalOptions="Center" Margin="0,12,0,0">
+                    <Label Text="AatmanAI"
+                           FontSize="28" FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           CharacterSpacing="1.2"/>
+                    <Label Text="Offline Intelligence. Private by Design."
+                           FontSize="12"
+                           TextColor="#999999"
+                           HorizontalOptions="Center"
+                           CharacterSpacing="0.5"/>
+                </VerticalStackLayout>
+
+                <!-- ========== EMAIL LABEL ========== -->
+                <Label Grid.Row="4"
+                       Text="Email Address"
+                       FontSize="13" FontAttributes="Bold"
+                       TextColor="White"/>
+
+                <!-- ========== EMAIL FIELD ========== -->
+                <Border Grid.Row="5"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#152828"
+                        Stroke="#2B8C78"
+                        StrokeThickness="1"
+                        Padding="0" HeightRequest="52"
+                        Margin="0,8,0,0">
+                    <Grid ColumnDefinitions="48,*" Padding="0">
+                        <Label Text="&#x2709;" FontSize="18"
+                               TextColor="#00B386"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Placeholder="Enter your email"
+                               PlaceholderColor="#666666"
+                               TextColor="White"
+                               BackgroundColor="Transparent"
+                               Text="{Binding Email}"
+                               Keyboard="Email" FontSize="14"/>
+                    </Grid>
+                </Border>
+
+                <!-- ========== PASSWORD LABEL ========== -->
+                <Label Grid.Row="6"
+                       Text="Password"
+                       FontSize="13" FontAttributes="Bold"
+                       TextColor="White"
+                       Margin="0,16,0,0"/>
+
+                <!-- ========== PASSWORD FIELD ========== -->
+                <Border Grid.Row="7"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#152828"
+                        Stroke="#2B8C78"
+                        StrokeThickness="1"
+                        Padding="0" HeightRequest="52"
+                        Margin="0,8,0,0">
+                    <Grid ColumnDefinitions="48,*,48" Padding="0">
+                        <Label Text="&#x26BF;" FontSize="18"
+                               TextColor="#00B386"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               Placeholder="Enter your password"
+                               PlaceholderColor="#666666"
+                               TextColor="White"
+                               BackgroundColor="Transparent"
+                               Text="{Binding Password}"
+                               IsPassword="{Binding IsPasswordVisible, Converter={StaticResource InverseBoolConverter}}"
+                               FontSize="14"/>
+                        <Border Grid.Column="2"
+                                StrokeShape="RoundRectangle 12"
+                                BackgroundColor="Transparent" StrokeThickness="0"
+                                WidthRequest="40" HeightRequest="40">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding TogglePasswordVisibilityCommand}"/>
+                            </Border.GestureRecognizers>
+                            <Label Text="&#x25C9;" FontSize="18"
+                                   TextColor="#808080"
+                                   HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- ========== FORGOT PASSWORD + ERROR + LOGIN BUTTON ========== -->
+                <VerticalStackLayout Grid.Row="8" Spacing="0">
+                    <Label Text="Forgot Password?"
+                           FontSize="12"
+                           TextColor="#00D9A5"
+                           TextDecorations="Underline"
+                           HorizontalOptions="End"
+                           Margin="0,4,0,0"/>
+
+                    <!-- Error message from ViewModel -->
+                    <Label Text="{Binding ErrorMessage}"
+                           FontSize="12"
+                           TextColor="#FF6B6B"
+                           HorizontalTextAlignment="Center"
+                           IsVisible="{Binding ErrorMessage, Converter={StaticResource IsNotEmptyConverter}}"
+                           Margin="0,8,0,0"/>
+
+                    <!-- Login button (solid accent, matching Flutter gradient button) -->
+                    <Button Text="Login"
+                            Command="{Binding LoginCommand}"
+                            BackgroundColor="#00D9A5"
+                            TextColor="#0A1A1F"
+                            FontAttributes="Bold" FontSize="16"
+                            CornerRadius="14" HeightRequest="52"
+                            Margin="0,20,0,0"/>
+                </VerticalStackLayout>
+
+                <!-- ========== BIOMETRIC / FACE ID ========== -->
+                <VerticalStackLayout Grid.Row="10" Spacing="6"
+                                     HorizontalOptions="Center">
+                    <Border StrokeShape="RoundRectangle 28"
+                            BackgroundColor="#162D2D"
+                            Stroke="#2B8C78"
+                            StrokeThickness="2"
+                            WidthRequest="56" HeightRequest="56"
+                            HorizontalOptions="Center">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding FaceIdLoginCommand}"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="&#x263A;" FontSize="28"
+                               TextColor="#00D9A5"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Label Text="Face ID" FontSize="12"
+                           TextColor="#B0B0B0"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <!-- ========== CREATE ACCOUNT ========== -->
+                <HorizontalStackLayout Grid.Row="11" Spacing="4"
+                                       HorizontalOptions="Center" Margin="0,16,0,0">
+                    <Label Text="Don't have an account?"
+                           FontSize="13"
+                           TextColor="#999999"
+                           VerticalOptions="Center"/>
+                    <Label Text="Create Account"
+                           FontSize="13" FontAttributes="Bold"
+                           TextColor="White"
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CreateAccountCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <!-- ========== SECURE CONNECTION BADGE ========== -->
+                <Border Grid.Row="13"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#132424"
+                        Stroke="#1F6B5C"
+                        StrokeThickness="1"
+                        Padding="16,10"
+                        HorizontalOptions="Center"
+                        Margin="0,0,0,16">
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="&#x26E8;" FontSize="16"
+                               TextColor="#00D9A5"
+                               VerticalOptions="Center"/>
+                        <Label Text="SECURE CONNECTION"
+                               FontSize="11"
+                               TextColor="#B0B0B0"
+                               FontAttributes="Bold"
+                               CharacterSpacing="1"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+            </Grid>
+        </ScrollView>
+
+        <!-- Loading overlay bound to IsBusy -->
+        <Grid IsVisible="{Binding IsBusy}"
+              BackgroundColor="#CC0A0E14">
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               Color="#00D9A5"
+                               WidthRequest="40" HeightRequest="40"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+    </Grid>
+</ContentPage>

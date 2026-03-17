@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="AatmanAI.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:AatmanAI.Views"
+       Title="Aatman AI"
+       FlyoutBehavior="Disabled"
+       Shell.BackgroundColor="{StaticResource BackgroundDark}"
+       Shell.ForegroundColor="{StaticResource TextPrimary}"
+       Shell.TitleColor="{StaticResource TextPrimary}"
+       Shell.TabBarBackgroundColor="{StaticResource SurfaceDark}"
+       Shell.TabBarForegroundColor="{StaticResource AccentGreen}"
+       Shell.TabBarUnselectedColor="{StaticResource TextTertiary}"
+       Shell.NavBarHasShadow="False"
+       Shell.NavBarIsVisible="False">
+
+    <!-- Splash (initial route) -->
+    <ShellContent Route="splash"
+                  ContentTemplate="{DataTemplate views:SplashPage}"
+                  Shell.TabBarIsVisible="False"
+                  Shell.NavBarIsVisible="False"/>
+
+    <!-- First Launch -->
+    <ShellContent Route="firstlaunch"
+                  ContentTemplate="{DataTemplate views:FirstLaunchPage}"
+                  Shell.TabBarIsVisible="False"
+                  Shell.NavBarIsVisible="False"/>
+
+    <!-- Main Tab Bar -->
+    <TabBar Route="main">
+        <ShellContent Route="home" Title="Threads"
+                      ContentTemplate="{DataTemplate views:HomePage}"
+                      Shell.NavBarIsVisible="False"/>
+        <ShellContent Route="settings" Title="Settings"
+                      ContentTemplate="{DataTemplate views:SettingsPage}"
+                      Shell.NavBarIsVisible="False"/>
+    </TabBar>
+
+</Shell>

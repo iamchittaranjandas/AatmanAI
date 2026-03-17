@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Download &amp; Update Manager - Aatman AI 360</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#e8ab30", // Champagne Gold
+                        "secondary": "#2dd4bf", // Soft Teal
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#0B0F19", // Deep Indigo
+                        "surface-dark": "#151a29", // Lighter Indigo for cards
+                        "surface-border": "#2A3245",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased selection:bg-primary selection:text-black">
+<div class="relative flex min-h-screen w-full flex-col overflow-hidden max-w-md mx-auto shadow-2xl">
+<!-- Header -->
+<header class="flex items-center justify-between p-4 pt-6 sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md">
+<button class="text-slate-900 dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Download Manager</h1>
+<div class="flex items-center justify-end">
+<button class="flex items-center justify-center rounded-xl h-10 w-10 text-primary bg-primary/10 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1;">shield</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto pb-24 px-4">
+<!-- Connection Status -->
+<div class="flex items-center justify-center gap-2 mb-6 opacity-70">
+<div class="size-2 rounded-full bg-secondary animate-pulse"></div>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Secure Connection Established</span>
+</div>
+<!-- Storage Stats -->
+<div class="grid grid-cols-2 gap-4 mb-8">
+<div class="flex flex-col gap-1 rounded-2xl p-5 bg-white dark:bg-surface-dark border border-slate-200 dark:border-surface-border shadow-sm">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">hard_drive</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-wider">Available</p>
+</div>
+<p class="text-slate-900 dark:text-white text-2xl font-bold leading-tight">128 GB</p>
+</div>
+<div class="flex flex-col gap-1 rounded-2xl p-5 bg-white dark:bg-surface-dark border border-slate-200 dark:border-surface-border shadow-sm">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-[20px]">downloading</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-wider">Required</p>
+</div>
+<p class="text-primary text-2xl font-bold leading-tight">2.4 GB</p>
+</div>
+</div>
+<!-- Active Downloads Section -->
+<div class="mb-8">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold">Active Downloads</h3>
+<span class="text-xs font-medium bg-primary/20 text-primary px-2 py-1 rounded-full">2 Pending</span>
+</div>
+<!-- Card 1 -->
+<div class="flex flex-col rounded-2xl bg-white dark:bg-surface-dark border border-slate-200 dark:border-surface-border p-5 mb-4 shadow-lg shadow-black/20">
+<div class="flex items-start justify-between mb-4">
+<div class="flex gap-4">
+<div class="flex items-center justify-center rounded-xl bg-slate-100 dark:bg-white/5 shrink-0 size-12 text-primary">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white text-base font-bold leading-tight mb-1">Power Ghost 2.0</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal">Advanced Offline Reasoning Engine</p>
+</div>
+</div>
+<button class="text-primary hover:text-white hover:bg-primary/20 rounded-full p-2 transition-all">
+<span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1;">pause_circle</span>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<span class="text-xs font-mono text-secondary">Applying Delta Update...</span>
+<span class="text-sm font-bold text-slate-900 dark:text-white">45%</span>
+</div>
+<div class="h-2 w-full rounded-full bg-slate-100 dark:bg-black/40 overflow-hidden">
+<div class="h-full rounded-full bg-secondary shadow-[0_0_10px_rgba(45,212,191,0.5)] relative overflow-hidden" style="width: 45%;">
+<div class="absolute inset-0 bg-white/20 w-full h-full animate-[shimmer_2s_infinite] skew-x-12 translate-x-[-100%]"></div>
+</div>
+</div>
+<div class="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
+<span>142 MB / 315 MB</span>
+<span>Est: 2m 14s</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex flex-col rounded-2xl bg-white dark:bg-surface-dark border border-slate-200 dark:border-surface-border p-5 shadow-lg shadow-black/20">
+<div class="flex items-start justify-between mb-4">
+<div class="flex gap-4">
+<div class="flex items-center justify-center rounded-xl bg-slate-100 dark:bg-white/5 shrink-0 size-12 text-primary">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white text-base font-bold leading-tight mb-1">Security Patch v4.1</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal">Biometric Encryption Update</p>
+</div>
+</div>
+<button class="text-primary hover:text-white hover:bg-primary/20 rounded-full p-2 transition-all">
+<span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1;">pause_circle</span>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<span class="text-xs font-mono text-secondary">Verifying SHA256 Integrity...</span>
+<span class="text-sm font-bold text-slate-900 dark:text-white">12%</span>
+</div>
+<div class="h-2 w-full rounded-full bg-slate-100 dark:bg-black/40 overflow-hidden">
+<div class="h-full rounded-full bg-secondary shadow-[0_0_10px_rgba(45,212,191,0.5)] relative overflow-hidden" style="width: 12%;"></div>
+</div>
+<div class="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
+<span>12 MB / 98 MB</span>
+<span>Est: 45s</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Installed Modules -->
+<div>
+<h3 class="text-slate-900 dark:text-white text-lg font-bold mb-4 px-1">Installed Modules</h3>
+<div class="flex flex-col gap-3">
+<!-- Installed Item 1 -->
+<div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-transparent hover:border-surface-border transition-colors">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center rounded-lg bg-slate-200 dark:bg-white/10 shrink-0 size-10 text-slate-500 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</div>
+<div class="flex flex-col">
+<p class="text-slate-900 dark:text-white text-sm font-medium leading-normal">Emotional Intelligence Core</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">v3.0.1 • Updated Today</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-green-500 text-[20px]">check_circle</span>
+</div>
+<!-- Installed Item 2 -->
+<div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-transparent hover:border-surface-border transition-colors">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center rounded-lg bg-slate-200 dark:bg-white/10 shrink-0 size-10 text-slate-500 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px]">translate</span>
+</div>
+<div class="flex flex-col">
+<p class="text-slate-900 dark:text-white text-sm font-medium leading-normal">Offline NLP - English</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">v1.2.4 • Updated 2d ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-green-500 text-[20px]">check_circle</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-xl border-t border-slate-200 dark:border-surface-border z-20 max-w-md mx-auto">
+<button class="w-full h-12 flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-slate-900 rounded-xl font-bold text-base transition-all transform active:scale-[0.98]">
+<span class="material-symbols-outlined">update</span>
+                Check for Updates
+            </button>
+</div>
+</div>
+<style>
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+</body></html>
