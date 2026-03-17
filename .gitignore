@@ -1,3 +1,7 @@
+# Project folders to ignore
+.github/
+screen/
+
 # Build results
 [Dd]ebug/
 [Rr]elease/
